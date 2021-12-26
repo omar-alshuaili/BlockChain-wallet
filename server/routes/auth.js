@@ -6,14 +6,13 @@ const JWT = require('jsonwebtoken')
 //validation 
 const Joi = require('@hapi/joi')
 const schema = {
-    name :Joi.string().min(6).max(255).required(),
+    name :Joi.string().min(3).max(255).required(),
     email:Joi.string().min(6).max(255).required().email(),
     password:Joi.string().min(6).max(255).required(),
 }
 router.post('/register', async (req,res) =>{
 
     //validation before adding users 
-   
 
     const {error} = validateUserRegister(req.body)
     if(error) return res.status(400).send(error.details[0].message)
@@ -46,7 +45,7 @@ router.post('/register', async (req,res) =>{
 //log in 
 router.post('/login', async (req,res) =>{
 
-    //validation before adding users 
+    //validation before logginging users 
    
 
     const {error} = validateUserLogin(req.body)
@@ -59,13 +58,16 @@ router.post('/login', async (req,res) =>{
     //password is correct?
     const validPass = await bcrypt.compare(req.body.password,user.password)
     if(!validPass) return res.status(400).send("Invalid password !");
-
-    //create token
+        //create token
+        res.send(JSON.stringify('you can log in !'))
     const token = JWT.sign({_id:user._id},process.env.tokerSec)
-    res.header('auth-token',token).send(token)
+    // res.header('auth-token',token).send(token)
 
 
 });
+
+
+
 
 
 module.exports  = router

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<header>
+    <app-nav></app-nav>
+
+
+</header>
+
+<body>
+    <main>
+        <section class="grid section-one">
+            <div class="left">
+                <div class="heading" >Make your first trade with us</div>
+                <div class="sub-heading">Enter your email and start selling and buying now</div>
+                <div class="signup-form">
+                    <input for="email" type="email" placeholder="Enter your email" formControlName="email"  >
+                    <button  routerLink="/singup"  type="submit"> sign up </button>
+                </div>
+
+            </div>
+            <div class="right">
+                <img class="img-section-one img" src="../assets/undraw_crypto_portfolio_2jy5.png" alt="crypto">
+            </div>
+
+
+        </section>
+        <!--section 2-->
+        <section class="grid section-two">
+            <table class="table">
+                
+                <tbody >
+                  <tr>
+                    <th scope="row"></th>
+                    <td class="bitcoin ">Bitcoin</td>
+                    <td></td>
+                    <td>{{coin1 | number}} $</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" ></th>
+                    <td class="ethereum">ethereum</td>
+                    <td></td>
+                    <td>{{coin2 | number}} $</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" ></th>
+                    <td class="ripple">Ripple</td>
+                    <td></td>
+                    <td>{{coin3 | number}} $</td>
+                    
+                  </tr>
+                </tbody>
+              </table>
+
+
+        </section>
+       
+    </main>
+</body>
+
+</html>

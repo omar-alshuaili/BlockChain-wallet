@@ -1,1 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --primary-Black: 33, 39, 48;
+  --primary-Gray: 57, 62, 70;
+  --primary-Teal: 0, 170, 179;
+  --primary-White: 238, 238, 238;
+  --primary-border-radius: 0.5rem;
+}

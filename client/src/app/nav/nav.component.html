@@ -1,0 +1,50 @@
+<header class="primary-header flex">
+    <div alt="logo" class="logo">
+    </div>
+    <button aria-expanded="false" #toogleNavButton (click)="ToggleNav()" class="mobile-nav-toggle"
+        aria-controls="primary-navigation" aria-expanded="false"></button>
+
+    <nav>
+        <ul data-visible="false" class="primary-navigation flex" #nav>
+
+            <li class="active">
+                <a routerLink="/" routerLinkActive="active">
+                    <span>Home</span>
+                </a>
+            </li>
+            <li class="primary-links">
+                <a routerLink="/about" routerLinkActive="active">
+                    <span>About</span>
+                </a>
+            </li>
+            <li class="primary-links">
+                <a routerLink="/contactus" routerLinkActive="active">
+                    <span>Contact us</span>
+                </a>
+            </li>
+            <li class="primary-links buttonsDiv">
+                <div>
+                    <button routerLink="/login" routerLinkActive="active" class="login button">login</button>
+                </div>
+                <div>
+                    <button routerLink="/singup" routerLinkActive="active" class="singup button">Get started</button>
+                </div>
+
+
+            </li>
+            <div class="nav-humbrger">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </ul>
+    </nav>
+</header>
+
+
+
+
+
+
+

@@ -20,6 +20,7 @@ password :{
     max:1024
    
 },
+
 date:{
     type: Date,
     default:Date.now
@@ -27,4 +28,4 @@ date:{
 
 })
 
-module.exports = mongoose.model('Users',userSchema)
+module.exports = mongoose.model('users',userSchema)

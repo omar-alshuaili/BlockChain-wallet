@@ -1,0 +1,32 @@
+<app-nav></app-nav>
+
+<div class="container">
+<span class="containerHeading">Log in</span>
+
+<div class="grid">
+    <div class="right">
+        <form class="form" [formGroup]="form">
+
+            <div class="inputs">
+                <input formControlName="email" type="email" placeholder="email" >
+				<strong *ngIf="email.touched && email.invalid" style="color: rgb(168, 0, 50); font-family: 'Courier New', Courier, monospace;" > please Enter a valid email</strong>
+
+			</div>
+            <div class="inputs">
+				<input formControlName="password" type="password" placeholder="password">
+				<strong class="error" *ngIf="password.touched && password.invalid"  > please Enter a valid password</strong>
+				<strong  *ngIf="showError && !password.dirty && !email.dirty" style="color: rgb(168, 0, 50); font-family: 'Courier New', Courier, monospace;" > Both fields are required</strong>
+			</div>
+            <strong *ngIf="showError" class="error"   > {{message}}</strong>
+
+            <button  class="signup" type="button" (click)="login()"> Log in </button>
+    
+        </form>
+    </div>
+    <div class="left">
+        <span class="heading">Don't have an account yet? </span>
+        <br>
+        <a routerLink="/singup"  class="sub-heading" >sign up</a>
+    </div>
+</div>
+</div>
