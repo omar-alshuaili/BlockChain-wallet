@@ -25,7 +25,9 @@ isVerified:{
     default: false
 },
 emailToken:String,
-
+wallets:[{
+    walletId:String
+}],
 date:{
     type: Date,
     default:Date.now
