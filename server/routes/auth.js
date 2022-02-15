@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const Users  = require('../model/user');
+const defaultWallet  = require('../model/user');
 const { validateUserRegister,validateUserLogin} = require('../validation')
 const bcrypt = require('bcryptjs')
 const JWT = require('jsonwebtoken')
@@ -7,16 +8,23 @@ const JWT = require('jsonwebtoken')
 const crypto = require('crypto')
 const dotenn = require('dotenv');
 const sgMail = require('@sendgrid/mail')
+var https = require("https");
 dotenn.config();
 //validation 
 const Joi = require('@hapi/joi')
+
+
+
+
 const schema = {
     name :Joi.string().min(3).max(255).required(),
     email:Joi.string().min(6).max(255).required().email(),
     password:Joi.string().min(6).max(255).required(),
 }
 router.post('/register', async (req,res) =>{
-
+    const result2 =  ff(getWallet)
+    console.log(result2);
+    
     sgMail.setApiKey(process.env.SENDGRID_API_KEY)
     // validation before adding users 
 
@@ -40,7 +48,8 @@ router.post('/register', async (req,res) =>{
         email:req.body.email,
         password:hashPassword,
         emailToken: crypto.randomBytes(64).toString('hex'),
-        isVerified : false
+        isVerified : false,
+        // wallets : wallet.data.item.address
 
     })
 
@@ -278,6 +287,7 @@ router.post('/login', async (req,res) =>{
     //check if verified
     const isVerified = await user.isVerified
     if(!isVerified) return res.status(400).send("Please verify your email first");
+
        
     //create token
     res.send(JSON.stringify('you can log in !'))
@@ -288,7 +298,7 @@ router.post('/login', async (req,res) =>{
 });
 
 router.get('/verify-email',async (req,res) => {
-
+ 
 
     try {
         console.log(1);
@@ -301,8 +311,10 @@ router.get('/verify-email',async (req,res) => {
         user.emailToken = null;
         user.isVerified = true;
         await user.save()
+        
 
         return res.status(200).json('Thanks! Your email is verified you can log in now')
+
         } 
     catch (error) {
 
@@ -311,6 +323,55 @@ router.get('/verify-email',async (req,res) => {
 })
 
 
+
+
+
+  var getWalletId = function(){
+    var wallet ='123'
+    var options = {
+        "method": "POST",
+        "hostname": "rest.cryptoapis.io",
+        "path": "/v2/wallet-as-a-service/wallets/620bf50cf7a654000644660b/bitcoin/testnet/addresses",
+        "qs": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "X-API-Key": "b97183b8611af75f133bc5d7f1db33d4344c6c56"
+        }
+      };
+
+  var req = https.request(options, function (res) {
+    var chunks = [];
+    
+    res.on("data", function (chunk) {
+      chunks.push(chunk);
+    });
+  
+    res.on("end", function () {
+      var body = JSON.parse(Buffer.concat(chunks));
+
+ 
+    wallet = body.data.item.address
+    console.log(wallet);
+    callback(wallet)
+    });
+
+  });
+
+  req.write(JSON.stringify({
+    "context": "",
+    "data": {
+        "item": {
+            "label": "yourLabelStringHere"
+        }
+    }
+}));
+
+
+
+  req.end();
+  
+}
+  
 
 
 
