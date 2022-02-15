@@ -3,8 +3,12 @@ const app = express();
 const mongoose = require('mongoose');
 const dotenn = require('dotenv');
 const cors = require('cors');
-app.use(cors())
-
+const corsOptions = {
+  origin:'http://localhost:4200',
+  credentials:true
+}
+// configure the middleware for parsing HTML requeest body
+app.use(cors(corsOptions));
 //importing routes
 const authRoute = require('./routes/auth')
 const ApiRoute = require('./routes/crypto-api')

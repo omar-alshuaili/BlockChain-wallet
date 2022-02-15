@@ -20,6 +20,11 @@ password :{
     max:1024
    
 },
+isVerified:{
+    type:Boolean,
+    default: false
+},
+emailToken:String,
 
 date:{
     type: Date,

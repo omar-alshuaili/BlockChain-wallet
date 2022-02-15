@@ -9,7 +9,8 @@ import { NavComponent } from './nav/nav.component';
 import {HttpClientModule} from '@angular/common/http';
 import { GetStartedComponent } from './get-started/get-started.component';
 import { AboutComponent } from './about/about.component';
-import { HomeComponent } from './home/home.component'
+import { HomeComponent } from './home/home.component';
+import { WalletComponent } from './wallet/wallet.component'
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { HomeComponent } from './home/home.component'
     NavComponent,
     GetStartedComponent,
     AboutComponent,
-    HomeComponent
+    HomeComponent,
+    WalletComponent
   ],
   imports: [
     BrowserModule,
