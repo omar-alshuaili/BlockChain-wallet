@@ -1,7 +1,7 @@
 const router = require('express').Router();
-const Users  = require('../model/user');
-const defaultWallet  = require('../model/user');
-const { validateUserRegister,validateUserLogin} = require('../validation')
+const Users = require('../model/user');
+const defaultWallet = require('../model/user');
+const { validateUserRegister, validateUserLogin } = require('../validation')
 const bcrypt = require('bcryptjs')
 const JWT = require('jsonwebtoken')
 
@@ -13,61 +13,61 @@ dotenn.config();
 //validation 
 const Joi = require('@hapi/joi')
 
-
+global.wallets;
 
 
 const schema = {
-    name :Joi.string().min(3).max(255).required(),
-    email:Joi.string().min(6).max(255).required().email(),
-    password:Joi.string().min(6).max(255).required(),
+  name: Joi.string().min(3).max(255).required(),
+  email: Joi.string().min(6).max(255).required().email(),
+  password: Joi.string().min(6).max(255).required(),
 }
-router.post('/register', async (req,res) =>{
-    const result2 =  ff(getWallet)
-    console.log(result2);
-    
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-    // validation before adding users 
+router.post('/register', async (req, res) => {
 
-    const {error} = validateUserRegister(req.body)
-    if(error) return res.status(400).send(error.details[0].message)
+getWalletId()
 
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+  // validation before adding users 
 
-
-    const emailExist = await Users.findOne({email:req.body.email})
-    if(emailExist) return res.status(400).send('email already exists')
-
-
-    // hash the password
-    const salt = await bcrypt.genSalt(10);
-    const hashPassword = await bcrypt.hash(req.body.password,salt);
+  const { error } = validateUserRegister(req.body)
+  if (error) return res.status(400).send(error.details[0].message)
 
 
 
-    const user = new Users({
-        name:req.body.name,
-        email:req.body.email,
-        password:hashPassword,
-        emailToken: crypto.randomBytes(64).toString('hex'),
-        isVerified : false,
-        // wallets : wallet.data.item.address
+  const emailExist = await Users.findOne({ email: req.body.email })
+  if (emailExist) return res.status(400).send('email already exists')
 
-    })
+
+  // hash the password
+  const salt = await bcrypt.genSalt(10);
+  const hashPassword = await bcrypt.hash(req.body.password, salt);
 
 
 
+  const user = new Users({
+    name: req.body.name,
+    email: req.body.email,
+    password: hashPassword,
+    emailToken: crypto.randomBytes(64).toString('hex'),
+    isVerified: false,
+    // wallets : wallet.data.item.address
 
-//     sendGrid.setApiKey(process.env.SENDGRID_API_KEY)
+  })
 
 
-    const msg = {
-        from: 'project300-11@outlook.com',
-        to: user.email,
-        subject: 'Welcome to my website! – Please verfiy your account',
-        text: `Hello ${user.name},
+
+
+  //     sendGrid.setApiKey(process.env.SENDGRID_API_KEY)
+
+
+  const msg = {
+    from: 'project300-11@outlook.com',
+    to: user.email,
+    subject: 'Welcome to my website! – Please verfiy your account',
+    text: `Hello ${user.name},
         To start using your account please use this code to verify your account
         http://localhost:4200/verify-email?token=${user.emailToken}
         `,
-        html:`
+    html: `
         <!DOCTYPE html>
 <html>
 <head>
@@ -248,20 +248,20 @@ router.post('/register', async (req,res) =>{
 </body>
 </html>
         `
-};
+  };
 
-    sgMail
-  .send(msg)
-  .then(() => {
-    console.log('Email sent')
-  })
-  .catch((error) => {
-    console.error(error)
-  })
-    await user.save()
-    res.status(201).json('Thanks for registering with us please check your email')
+  sgMail
+    .send(msg)
+    .then(() => {
+      console.log('Email sent')
+    })
+    .catch((error) => {
+      console.error(error)
+    })
+  await user.save()
+  res.status(201).json('Thanks for registering with us please check your email')
 
- 
+
 });
 
 
@@ -269,90 +269,87 @@ router.post('/register', async (req,res) =>{
 
 
 //log in 
-router.post('/login', async (req,res) =>{
+router.post('/login', async (req, res) => {
 
-    //validation before logginging users 
-   
+  //validation before logginging users 
 
-    const {error} = validateUserLogin(req.body)
-    if(error) return res.status(400).send(error.details[0].message)
 
-    //check if the email exists 
-    const user = await Users.findOne({email:req.body.email})
-    if(!user) return res.status(400).send('email or password is wrong')
+  const { error } = validateUserLogin(req.body)
+  if (error) return res.status(400).send(error.details[0].message)
 
-    //password is correct?
-    const validPass = await bcrypt.compare(req.body.password,user.password)
+  //check if the email exists 
+  const user = await Users.findOne({ email: req.body.email })
+  if (!user) return res.status(400).send('email or password is wrong')
 
-    //check if verified
-    const isVerified = await user.isVerified
-    if(!isVerified) return res.status(400).send("Please verify your email first");
+  //password is correct?
+  const validPass = await bcrypt.compare(req.body.password, user.password)
 
-       
-    //create token
-    res.send(JSON.stringify('you can log in !'))
-    const token = JWT.sign({_id:user._id},process.env.tokerSec)
-    // res.header('auth-token',token).send(token)
+  //check if verified
+  const isVerified = await user.isVerified
+  if (!isVerified) return res.status(400).send("Please verify your email first");
+
+
+  //create token
+  res.send(JSON.stringify('you can log in !'))
+  const token = JWT.sign({ _id: user._id }, process.env.tokerSec)
+  // res.header('auth-token',token).send(token)
 
 
 });
 
-router.get('/verify-email',async (req,res) => {
- 
+router.get('/verify-email', async (req, res) => {
 
-    try {
-        console.log(1);
-        const user = await Users.findOne({emailToken:req.query.token})
-        if(!user){
-            return res.status(404).json('Token is not valid.')
-        }
-       
-        
-        user.emailToken = null;
-        user.isVerified = true;
-        await user.save()
-        
 
-        return res.status(200).json('Thanks! Your email is verified you can log in now')
-
-        } 
-    catch (error) {
-
-        return res.status(400).json('something went wrong please try again later')
+  try {
+    console.log(1);
+    const user = await Users.findOne({ emailToken: req.query.token })
+    if (!user) {
+      return res.status(404).json('Token is not valid.')
     }
+
+
+    user.emailToken = null;
+    user.isVerified = true;
+    await user.save()
+
+
+    return res.status(200).json('Thanks! Your email is verified you can log in now')
+
+  }
+  catch (error) {
+
+    return res.status(400).json('something went wrong please try again later')
+  }
 })
 
 
 
 
 
-  var getWalletId = function(){
-    var wallet ='123'
-    var options = {
-        "method": "POST",
-        "hostname": "rest.cryptoapis.io",
-        "path": "/v2/wallet-as-a-service/wallets/620bf50cf7a654000644660b/bitcoin/testnet/addresses",
-        "qs": [],
-        "headers": {
-          "Content-Type": "application/json",
-          "X-API-Key": "b97183b8611af75f133bc5d7f1db33d4344c6c56"
-        }
-      };
+function getWalletId() {
+
+  var options = {
+    "method": "POST",
+    "hostname": "rest.cryptoapis.io",
+    "path": "/v2/wallet-as-a-service/wallets/620d2c8cf7a6540006446647/bitcoin/testnet/addresses",
+    "qs": [],
+    "headers": {
+      "Content-Type": "application/json",
+      "X-API-Key": "67a972dc6ef3182e32e7faa31a6ede14ebc54999"
+    }
+  };
 
   var req = https.request(options, function (res) {
     var chunks = [];
-    
+
     res.on("data", function (chunk) {
       chunks.push(chunk);
     });
-  
+
     res.on("end", function () {
       var body = JSON.parse(Buffer.concat(chunks));
 
- 
-    wallet = body.data.item.address
-    console.log(wallet);
-    callback(wallet)
+      getId(body.data.item.address)
     });
 
   });
@@ -360,19 +357,22 @@ router.get('/verify-email',async (req,res) => {
   req.write(JSON.stringify({
     "context": "",
     "data": {
-        "item": {
-            "label": "yourLabelStringHere"
-        }
+      "item": {
+        "label": "yourLabelStringHere"
+      }
     }
-}));
-
-
-
+  }));
   req.end();
-  
+
+
 }
-  
 
 
+function getId(id){
+console.log(id)
+  var wallets =  id
 
-module.exports  = router
+}
+
+
+module.exports = router
