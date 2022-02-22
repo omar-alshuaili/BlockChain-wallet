@@ -10,7 +10,9 @@ import {HttpClientModule} from '@angular/common/http';
 import { GetStartedComponent } from './get-started/get-started.component';
 import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
-import { WalletComponent } from './wallet/wallet.component'
+import { WalletComponent } from './wallet/wallet.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ProfileComponent } from './profile/profile.component'
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { WalletComponent } from './wallet/wallet.component'
     GetStartedComponent,
     AboutComponent,
     HomeComponent,
-    WalletComponent
+    WalletComponent,
+    DashboardComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

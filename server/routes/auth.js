@@ -4,26 +4,24 @@ const defaultWallet = require('../model/user');
 const { validateUserRegister, validateUserLogin } = require('../validation')
 const bcrypt = require('bcryptjs')
 const JWT = require('jsonwebtoken')
-
+var deasync = require('deasync');
 const crypto = require('crypto')
 const dotenn = require('dotenv');
 const sgMail = require('@sendgrid/mail')
 var https = require("https");
 dotenn.config();
+var Cryptoapis = require('cryptoapis');
 //validation 
 const Joi = require('@hapi/joi')
 
-global.wallets;
+var wallet;
 
-
-const schema = {
-  name: Joi.string().min(3).max(255).required(),
-  email: Joi.string().min(6).max(255).required().email(),
-  password: Joi.string().min(6).max(255).required(),
-}
 router.post('/register', async (req, res) => {
 
-getWalletId()
+  getWalletId()
+  console.log(wallet);
+
+
 
   sgMail.setApiKey(process.env.SENDGRID_API_KEY)
   // validation before adding users 
@@ -62,7 +60,7 @@ getWalletId()
   const msg = {
     from: 'project300-11@outlook.com',
     to: user.email,
-    subject: 'Welcome to my website! – Please verfiy your account',
+    subject: 'Thanks for joining us – Please verfiy your account',
     text: `Hello ${user.name},
         To start using your account please use this code to verify your account
         http://localhost:4200/verify-email?token=${user.emailToken}
@@ -323,56 +321,31 @@ router.get('/verify-email', async (req, res) => {
 })
 
 
+let defaultClient = Cryptoapis.ApiClient.instance;
+// Configure API key authorization: ApiKey
+let ApiKey = defaultClient.authentications['ApiKey'];
+ApiKey.apiKey = '222ce94ef1c530b777a2130ddbb22314281c9d93';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKey.apiKeyPrefix = 'Token';
 
+let apiInstance = new Cryptoapis.GeneratingApi();
+let blockchain = 'bitcoin'; // String | Represents the specific blockchain protocol name, e.g. Ethereum, Bitcoin, etc.
+let network = 'testnet'; // String | Represents the name of the blockchain network used; blockchain networks are usually identical as technology and software, but they differ in data, e.g. - \"mainnet\" is the live network with actual data while networks like \"testnet\", \"ropsten\" are test networks.
+let walletId = '620eaf42f7a65400064466b0'; // String | Represents the unique ID of the specific Wallet.
+let opts = {
 
-
-function getWalletId() {
-
-  var options = {
-    "method": "POST",
-    "hostname": "rest.cryptoapis.io",
-    "path": "/v2/wallet-as-a-service/wallets/620d2c8cf7a6540006446647/bitcoin/testnet/addresses",
-    "qs": [],
-    "headers": {
-      "Content-Type": "application/json",
-      "X-API-Key": "67a972dc6ef3182e32e7faa31a6ede14ebc54999"
-    }
-  };
-
-  var req = https.request(options, function (res) {
-    var chunks = [];
-
-    res.on("data", function (chunk) {
-      chunks.push(chunk);
-    });
-
-    res.on("end", function () {
-      var body = JSON.parse(Buffer.concat(chunks));
-
-      getId(body.data.item.address)
-    });
-
-  });
-
-  req.write(JSON.stringify({
-    "context": "",
-    "data": {
-      "item": {
-        "label": "yourLabelStringHere"
+  'data': {
+      'item': {
+         
       }
     }
-  }));
-  req.end();
-
-
 }
+apiInstance.generateDepositAddress(walletId,blockchain, network, opts).then((data) => {
 
-
-function getId(id){
-console.log(id)
-  var wallets =  id
-
-}
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
 
 
 module.exports = router

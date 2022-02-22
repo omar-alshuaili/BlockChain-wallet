@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { Renderer2, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
@@ -9,9 +10,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class NavComponent implements OnInit {
   @ViewChild('nav') nav?:ElementRef;
   @ViewChild('toogleNavButton') toogleNavButton?:ElementRef;
-  constructor(  private _router: Router   ) { }
+  constructor(  private _router: Router  ) { }
 
   ngOnInit(): void {
+
   }
   login(){
     this._router.navigate(['/login'])
@@ -36,5 +38,6 @@ export class NavComponent implements OnInit {
     window.location.reload();
 
   }
+
 
 }
