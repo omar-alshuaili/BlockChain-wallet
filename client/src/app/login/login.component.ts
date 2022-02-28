@@ -1,6 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { User } from '../user';
 
 @Component({
   selector: 'app-login',
@@ -14,15 +16,16 @@ export class LoginComponent implements OnInit {
   form!: FormGroup;
   showError: boolean = false;
   message: string = '';
+  isVerified?: User =undefined;
 
-  constructor(private authService:AuthService) { }
+  constructor(private authService:AuthService,private router:Router) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
     email: new FormControl(null, [
       Validators.minLength(4),
       Validators.required,
-      Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+      Validators.email,
     ]),
     password: new FormControl(null, [
       Validators.minLength(6),
@@ -45,15 +48,38 @@ get password():any {
       this.showError = true;
       return 
     }
+    this.authService.getUser(this.email.value).subscribe({
+      next:(u)=> this.isVerified = u,
+      complete:()=>this.canLogIn()
+    
+    })
+    if(!this.canLogIn()) {
+      console.log('please verify your email first');
+     return;
+    }
+
     else{
   
 
   
-      this.authService.login(this.email.value,this.password.value).subscribe({  
+  this.authService.login(this.email.value,this.password.value).subscribe({  
       next: ()=> alert('user logged in'),
       
-      error: (err) => (this.message =  err.error)(this.showError = true)}); 
-    }
+    error: (err) => (this.message =  err.error)(this.showError = true)}); 
+    
+  }
+  this.router.navigate(['/dashboard'])
 }
 
+canLogIn():boolean{
+  if(this.isVerified?.isVerified == false ){
+    return false
+  }
+  else{
+    
+    return true
+  }
 }
+}
+
+

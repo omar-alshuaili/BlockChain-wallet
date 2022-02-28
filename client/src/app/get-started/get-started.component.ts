@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { LoginComponent } from '../login/login.component';
 import { User } from '../user';
@@ -19,13 +20,13 @@ user?:User;
   message!: string;
   created: boolean = false;
 
-  constructor( private authService:AuthService) { }
+  constructor( private authService:AuthService,private route :Router) { }
 
   ngOnInit(): void {this.form = new FormGroup({
     email: new FormControl(null, [
       Validators.minLength(4),
       Validators.required,
-      Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+      Validators.email,
     ]),
     name: new FormControl(null, [
       Validators.minLength(6),
@@ -85,7 +86,7 @@ signup(){
 
   
       this.authService.register(this.email.value,this.password.value,this.name.value).subscribe({  
-      next: () => alert('you can log in now ..') ,
+      next: () => this.route.navigate([`verify/${this.email.value}`]) ,
       error: (err) => (this.message =  err.error)(this.showError = true)}); 
   }
 }

@@ -10,16 +10,18 @@ const dotenn = require('dotenv');
 const sgMail = require('@sendgrid/mail')
 var https = require("https");
 dotenn.config();
+var request = require('request');
 var Cryptoapis = require('cryptoapis');
 //validation 
 const Joi = require('@hapi/joi')
+var querystring = require('querystring');
 
-var wallet;
+
+
 
 router.post('/register', async (req, res) => {
 
-  getWalletId()
-  console.log(wallet);
+
 
 
 
@@ -47,7 +49,7 @@ router.post('/register', async (req, res) => {
     password: hashPassword,
     emailToken: crypto.randomBytes(64).toString('hex'),
     isVerified: false,
-    // wallets : wallet.data.item.address
+   
 
   })
 
@@ -257,9 +259,9 @@ router.post('/register', async (req, res) => {
       console.error(error)
     })
   await user.save()
+  createID(user.email)
   res.status(201).json('Thanks for registering with us please check your email')
-
-
+  
 });
 
 
@@ -287,6 +289,9 @@ router.post('/login', async (req, res) => {
   if (!isVerified) return res.status(400).send("Please verify your email first");
 
 
+
+
+
   //create token
   res.send(JSON.stringify('you can log in !'))
   const token = JWT.sign({ _id: user._id }, process.env.tokerSec)
@@ -295,12 +300,18 @@ router.post('/login', async (req, res) => {
 
 });
 
-router.get('/verify-email', async (req, res) => {
+
+
+
+
+
+
+router.get('/verify:email', async (req, res) => {
 
 
   try {
     console.log(1);
-    const user = await Users.findOne({ emailToken: req.query.token })
+    const user = await Users.findOne({ emailToken: req.params.email })
     if (!user) {
       return res.status(404).json('Token is not valid.')
     }
@@ -321,31 +332,49 @@ router.get('/verify-email', async (req, res) => {
 })
 
 
-let defaultClient = Cryptoapis.ApiClient.instance;
-// Configure API key authorization: ApiKey
-let ApiKey = defaultClient.authentications['ApiKey'];
-ApiKey.apiKey = '222ce94ef1c530b777a2130ddbb22314281c9d93';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//ApiKey.apiKeyPrefix = 'Token';
 
-let apiInstance = new Cryptoapis.GeneratingApi();
-let blockchain = 'bitcoin'; // String | Represents the specific blockchain protocol name, e.g. Ethereum, Bitcoin, etc.
-let network = 'testnet'; // String | Represents the name of the blockchain network used; blockchain networks are usually identical as technology and software, but they differ in data, e.g. - \"mainnet\" is the live network with actual data while networks like \"testnet\", \"ropsten\" are test networks.
-let walletId = '620eaf42f7a65400064466b0'; // String | Represents the unique ID of the specific Wallet.
-let opts = {
+async function createID(email){
 
-  'data': {
-      'item': {
-         
-      }
+  const user = await Users.findOne({ email: email })
+
+  var body = {
+
+  "context": "",
+  "data": {
+    "item": {
+      "label": "yourLabelStringHere"
     }
-}
-apiInstance.generateDepositAddress(walletId,blockchain, network, opts).then((data) => {
+  }
+};
 
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
+var bodyJSON = JSON.stringify(body);
+var contentLength = body.length;
+
+request.post({
+  uri: 'https://rest.cryptoapis.io/v2/wallet-as-a-service/wallets/621c6a570a13dd0006361114/bitcoin/testnet/addresses',
+  body: bodyJSON,
+  headers: {
+    'Content-Length': contentLength,
+    'Content-Type': 'application/json',
+    'X-Api-Key': '0044f886dc36efe657cf6b7eec589032a31f8d98'
+  },
+
+  method: 'POST'
+}, 
+function (err, res, data) {
+  var jsonResponse = JSON.parse(data);
+
+ user.wallets =  jsonResponse.data.item.address
+ user.save()
+ 
+
+}
+)
+
+console.log(user.wallets);
+
+
+}
 
 
 module.exports = router

@@ -187,6 +187,7 @@
   height: auto;}
 .Header {
 
+  z-index: 10900000;
   position: fixed;
   top: 0;
   left: 0;
@@ -260,11 +261,11 @@ width: 16.66667%;
 }
 .Button {
   position: relative;
-  display: flex;
+
   justify-content: center;
   align-items: center;
 
-  padding: 12px 0;
+  padding: 15px 20px;
   font-weight: 700;
   line-height: 100%;
   background: linear-gradient(145.8deg,#00a8ed 5.35%,#005ade 115.95%);
@@ -404,12 +405,16 @@ a {
 .SandwichMenu__menu-wrapper.enter-active .sandwich-menu__inner, .SandwichMenu__menu-wrapper.enter-done .sandwich-menu__inner {
   transform: translateX(0);
 }
-.login{
+.signup{
 width: 40%;
   border-color: #017be5;
   background-color: #fff;
 }
 .offset-4 {
-    margin-left: 55%;
+    margin-left: 50%;
+width: 25%;
+display: flex !important;
+justify-content: space-evenly;
+
 
   }

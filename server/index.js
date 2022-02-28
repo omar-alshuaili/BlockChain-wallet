@@ -43,6 +43,7 @@ app.use(express.json());
 
 //Route Middelwares
 app.use('/api/user',authRoute)
+app.use('/user',authRoute)
 app.use('/crypto',ApiRoute)
 
 app.listen(3000,()=>{

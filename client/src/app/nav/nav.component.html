@@ -4,13 +4,15 @@
         <div class="row align-items-center">
             <div class="col-6  col-md-4 col-lg-2"><a class="w-100" href="/"><img class="Header__logo"
                         src="../assets/logo.png" alt="open coin"></a></div>
-
+                       
+ 
             <div class="col-2 offset-4 d-none d-lg-block">
+                <button class="Button Button_gray " routerLink="/login"
+                routerLinkActive="active" ><span class="Button__text Button__text_normal">Log in</span></button>
+                <button class="Button Button_gray signup" routerLink="/singup"
+                routerLinkActive="active"><span class="Button__text Button__text_normal">get
+                    started</span></button>
 
-                <button class="Button Button_gray"><span class="Button__text Button__text_normal">get
-                        started</span></button>
-
-                <button class="Button Button_gray login"><span class="Button__text Button__text_normal">Log in</span></button>
             </div>
 
 
@@ -22,7 +24,7 @@
                         <div class="sandwich__line sandwich__line_bottom"></div>
                     </div>
                     <div class="SandwichMenu__menu-wrapper">
-                        <div class="sandwich-menu__overlay"></div>
+                        <div id="sandwich-menu__overlay" class="sandwich-menu__overlay"></div>
                         <div class="SandwichMenu__menu-container sandwich-menu">
                             <div class="sandwich-menu__inner">
 

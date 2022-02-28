@@ -24,10 +24,8 @@ isVerified:{
     type:Boolean,
     default: false
 },
-emailToken:String,
-wallets:[{
-    walletId:String
-}],
+emailToken:{type:String,expires:'2s'},
+wallets:String,
 date:{
     type: Date,
     default:Date.now

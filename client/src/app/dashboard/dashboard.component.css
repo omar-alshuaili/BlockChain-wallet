@@ -8,14 +8,16 @@
   font-family: "Poppins", sans-serif;
 }
 .sidebar {
+  border-radius: 30px;
   position: fixed;
-  right: 0;
-  top: inherit;
-  height: 100%;
+  right: 10%;
+  top: 20%;
+  height: 50%;
   width: 200px;
-  background: #11101d;
+  background-color: #fff;
+  box-shadow: rgba(0,0,0,0.1);
   padding: 6px 14px;
-  z-index: 99;
+  z-index: 10;
   transition: all 0.5s ease;
 }
 
@@ -28,7 +30,7 @@
   line-height: 60px;
 }
 .sidebar .nav-list {
-  margin-top: 20rem;
+  margin-top: 10rem;
   height: 100%;
 }
 .sidebar li {
@@ -98,10 +100,12 @@
   position: fixed;
   height: 60px;
   width: 200px;
-  right: 0;
-  bottom: -8px;
+  right: 10%;
+  border-radius: 30px;
+
+  bottom: 30%;
   padding: 10px 14px;
-  background: #1d1b31;
+
   transition: all 0.5s ease;
   overflow: hidden;
 }

@@ -1,6 +1,27 @@
+@font-face {
+  font-family: "archia";
+  src: url("../../assets/archia/archia-regular-webfont.woff2");
+  src: url("https://yoursite.com/css/fonts/CustomFont.woff") format("woff"),
+  }
 main {
-  margin: 0 2.5rem 0 2.5rem;
+
+
+  margin: 9rem 0rem ;
   height: 100%;
+
+}
+.over{
+  opacity: 0;
+  visibility: hidden;
+  background-color: rgba(95,115,145,.33);
+    position: fixed;
+  top: 0;
+  margin: auto;
+  bottom: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+
 }
 
 .grid {
@@ -22,13 +43,23 @@ main {
 .right {
   grid-column: span 2;
 }
+.img-section-one{
+  filter: drop-shadow(0 -4px 100px rgba(0,0,0,0.14));
+
+  width: 90% !important;
+  margin-left: 1rem;
+  position: relative;
+}
 .img {
   width: 100%;
   height: 100%;
 }
 .heading {
-  font-size: 4rem;
-  line-height: 4rem;
+  font-family: 'archia';
+  font-size: 6rem;
+  font-weight: 800;
+  line-height: 6rem;
+  margin-bottom: 2rem;
   color: rgb(var(--primary-Gray));
 }
 .sub-heading {
@@ -37,8 +68,8 @@ main {
   color: rgb(var(--primary-Gray));
 }
 .signup-form button {
-  background-color: rgb(var(--primary-Teal));
-  border-radius: var(--primary-border-radius);
+  background-color: #017be5;
+  border-radius: 600px;
   color: rgb(var(--primary-White));
   border: none;
   padding: 0.9rem;
@@ -46,9 +77,10 @@ main {
   padding-left: 1.6rem;
   padding-right: 1.6rem;
   margin-top: 1.5rem;
+  width: 20%;
 }
 .signup-form button:hover {
-  background-color: rgba(var(--primary-Teal), 0.9);
+  background-color: rgba(1, 122, 228, 0.8);
 }
 
 .signup-form {
@@ -56,12 +88,12 @@ main {
   display: block;
 }
 .signup-form input {
-  border: 2px solid rgba(var(--primary-Teal), 0.4);
-  width: 25rem;
+  border-radius: 600px;
+  border: 2px solid #5f7391;
+  width: 60%;
   margin-right: 1.9rem;
   padding: 0.9rem;
-  font-size: 1.3rem;
-  border-radius: var(--primary-border-radius);
+  font-size: 1rem;
 }
 
 /* section 2 */
@@ -384,4 +416,41 @@ a {
 }
 .SandwichMenu__menu-wrapper.enter-active .sandwich-menu__inner, .SandwichMenu__menu-wrapper.enter-done .sandwich-menu__inner {
   transform: translateX(0);
+}
+
+.scroll-downs {
+
+  position: absolute;
+
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  margin-bottom: 1rem;
+  width :34px;
+  height: 55px;
+}
+.mousey {
+  width: 3px;
+  padding: 10px 15px;
+  height: 35px;
+  border: 2px solid #000;
+  border-radius: 25px;
+  opacity: 0.75;
+  box-sizing: content-box;
+}
+.scroller {
+  width: 3px;
+  height: 10px;
+  border-radius: 25%;
+  background-color: #000;
+  animation-name: scroll;
+  animation-duration: 2.2s;
+  animation-timing-function: cubic-bezier(.15,.41,.69,.94);
+  animation-iteration-count: infinite;
+}
+@keyframes scroll {
+  0% { opacity: 0; }
+  10% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(15px); opacity: 0;}
 }

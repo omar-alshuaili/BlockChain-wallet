@@ -1,19 +1,12 @@
-
-.wallet-container{
-display: flex;
-align-items: center;
-justify-content: center;
-overflow-x: auto;
-overflow-y: hidden ;
-padding: 1rem;
-padding-left: 95rem;
-
-position: absolute;
-    top: 10%;
-   
- width: 100%;
-
+/* 
+.container{
+  width: 100%;
+  height: 100%;
+  margin:0;
+  background-color: #4F76FF;
+  display: flex;
 }
+
 .wallets{
 
 
@@ -23,46 +16,14 @@ position: absolute;
 }
 
   
-.card{
 
-
-
-margin-right: 3rem;
-      width: 450px;
-      height: 208px;
-  
-      
-  /* Gradient */
-  
-      background: linear-gradient(112.03deg, #C69DFF 0%, #4F76FF 100%);
-      border-radius: 16px;
-}
-  
-.amount{
-
-left:35% ;
-  top: 40%;
-
-  position: absolute;
-
-
-
-  font-family: Custom;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 40px;
-  line-height: 40px;
-  letter-spacing: 0.01em;
-  
-  color: #FFFFFF;
-  }
   
 
   
   .address{
     /* Balance */
   
-  z-index: 9999;
+  /* z-index: 9999;
   position: absolute;
 
 top: 70%;
@@ -72,28 +33,97 @@ left: 10%;
   font-style: normal;
   font-weight: normal;
   font-size: 1rem;
-  line-height: 18px;
+  line-height: 18px;  */
   /* identical to box height */
   
-  letter-spacing: 0.1em;
+  /* letter-spacing: 0.1em;
   
   color: #ffffff;
   font-family: Custom;
   
   }
   
-  .card-name{
-      color: #FFFFFF;
-  position: absolute;
+
+  
+  
+
+  } */
+  main{
+
+
+    width: 100%;
+    height: 100%;
+    background-color: aqua;
+  }
+  .wallet-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    overflow-y: hidden ;
+    padding: 1rem;
+    padding-left: 95rem;
+     width: 100%;
+    }
+.rectangle{
+    position: absolute;
+    width: 450px;
+
+  
+  background: linear-gradient(112.03deg, #C69DFF 0%, #4F76FF 100%);
+  border-radius: 16px;
+}
+.card-name{
+color: #FFFFFF;
+position: absolute;
 top: 10%;
 left: 10%;
 font-size: 1.4rem;
 
-  height: 16px;
+height: 16px;
 
-  }
+}
+.wallets{
+
+
+  display: block;
+
+
+}
+.card{
+
+
+
+  margin-right: 3rem;
+        width: 450px;
+        height: 208px;
+    
+        
+    /* Gradient */
+    
+        background: linear-gradient(112.03deg, #C69DFF 0%, #4F76FF 100%);
+        border-radius: 16px;
+  } 
+    
+   .amount{
   
-  .siluet-1{
+  left:35% ;
+    top: 40%;
+  
+    position: absolute;
+  
+  
+  
+    font-family: Custom;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 40px;
+    line-height: 40px;
+    letter-spacing: 0.01em;
+    
+    color: #FFFFFF;
+    }
+  .siluet-1{ 
     /* Ellipse 4 */
   position: absolute;
   width: 425px;
@@ -111,16 +141,96 @@ font-size: 1.4rem;
   margin: 64px 89px -115px -97px;
   background: rgba(255, 255, 255, 0.04);
   }
-  .rectangle{
-    position: absolute;
-    width: 450px;
-
-  
-  background: linear-gradient(112.03deg, #C69DFF 0%, #4F76FF 100%);
-  border-radius: 16px;
+  .siluet-1{ 
+   
+   position: absolute;
+  width: 425px;
+  height: 171px;
+  border-radius: 600px / 200px;
+  margin: 98px -20px -61px -78px;
+  background: rgba(255, 255, 255, 0.04);
   }
   
+  .siluet-2{
+    position: absolute;
+  width: 335px;
+  height: 259px;
+  border-radius: 50%;
+  margin: 64px 89px -115px -97px;
+  background: rgba(255, 255, 255, 0.04);
+  }
+  .siluet-1{ 
+    /* Ellipse 4 */
+  position: absolute;
+  width: 425px;
+  height: 171px;
+  border-radius: 600px / 200px;
+  margin: 98px -20px -61px -78px;
+  background: rgba(255, 255, 255, 0.04);
+  }
   
+  .siluet-2{
+    position: absolute;
+  width: 335px;
+  height: 259px;
+  border-radius: 50%;
+  margin: 64px 89px -115px -97px;
+  background: rgba(255, 255, 255, 0.04);
+  }
+  .siluet-1{ 
+    /* Ellipse 4 */
+  position: absolute;
+  width: 425px;
+  height: 171px;
+  border-radius: 600px / 200px;
+  margin: 98px -20px -61px -78px;
+  background: rgba(255, 255, 255, 0.04);
+  }
   
+  .siluet-2{
+    position: absolute;
+  width: 335px;
+  height: 259px;
+  border-radius: 50%;
+  margin: 64px 89px -115px -97px;
+  background: rgba(255, 255, 255, 0.04);
+  }
+  .siluet-1{ 
+    /* Ellipse 4 */
+  position: absolute;
+  width: 425px;
+  height: 171px;
+  border-radius: 600px / 200px;
+  margin: 98px -20px -61px -78px;
+  background: rgba(255, 255, 255, 0.04);
+  }
   
+  .siluet-2{
+    position: absolute;
+  width: 335px;
+  height: 259px;
+  border-radius: 50%;
+  margin: 64px 89px -115px -97px;
+  background: rgba(255, 255, 255, 0.04);
+  }
+  .address{
+    /* Balance */
   
+  z-index: 9999;
+  position: absolute;
+
+top: 70%;
+left: 10%;
+
+  font-family: Circular Std;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1rem;
+  line-height: 18px;  
+  
+   letter-spacing: 0.1em;
+  
+  color: #ffffff;
+  font-family: Custom;
+  
+  }

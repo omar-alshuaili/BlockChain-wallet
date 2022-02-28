@@ -11,7 +11,7 @@
   "dependencies": {
     "@hapi/joi": "^15.0.3",
     "@sendgrid/mail": "^7.6.1",
-    "api": "^4.1.1",
+    "api": "^4.2.0",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
@@ -23,7 +23,9 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.14",
     "mongose": "^0.0.2-security",
+    "node-fetch": "^3.2.0",
     "nodemon": "^2.0.15",
+    "request": "^2.88.2",
     "request-promise": "^4.2.6",
     "sendgrid": "^5.2.3"
   }

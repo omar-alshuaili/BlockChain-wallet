@@ -3,5 +3,7 @@ export interface User {
         firstName: string,
         lastName: string,
         email: string,
-        accessToken: string
+        emailToken: string,
+        isVerified:boolean
+
 }
