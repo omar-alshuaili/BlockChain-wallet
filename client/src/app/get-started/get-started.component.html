@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+
+<body>
+    <div class="container">
+    <span class="containerHeading">Sign up</span>
+    
+    <div class="grid">
+        <div class="right">
+            <form class="form" [formGroup]= "form">
+    
+                <div class="inputs">
+                    <input formControlName="name" type="text" placeholder="user name">
+                </div>
+                <div class="inputs">
+                    <input formControlName="email" type="email" placeholder="email">
+                    <strong *ngIf="email.touched && email.invalid" style="color: rgb(168, 0, 50); font-family: 'Courier New', Courier, monospace;" > please Enter a valid email</strong>
+    
+                </div>
+                <div class="inputs">
+                    <input formControlName="password" type="password" placeholder="password">
+                    <strong *ngIf=" (password.dirty || password.touched) && password.invalid" style="color: rgb(168, 0, 50); font-family: 'Courier New', Courier, monospace;" > please Enter a valid password</strong>
+                </div>
+                <div class="inputs">
+                    <input  type="password"  placeholder="confirm password" formControlName="confirmPassword"  >
+                    <strong *ngIf="confirmPassword.value != password.value && confirmPassword.touched" style="color: rgb(168, 0, 50); font-family: 'Courier New', Courier, monospace;" > passwords not matching</strong>
+                    <strong *ngIf="showError && !password.dirty && !email.dirty" style="color: rgb(168, 0, 50); font-family: 'Courier New', Courier, monospace;" >All Fields are required</strong>
+    
+                </div>
+                <div class="terms">
+                    <input type="checkbox"   class="checkbox" #terms >
+                    <span>accept T&C's</span>
+                    <br>
+                    <strong *ngIf="!accepted" style="color: rgb(168, 0, 50); font-family: 'Courier New', Courier, monospace;" >Please accept our T&C's</strong>
+    
+                </div>
+                <strong *ngIf="showError" class="error"   > {{message}}</strong>
+
+                <button  class="signup" type="submit" (click)="signup()"> sign up </button>
+            </form>
+        </div>
+        <div class="left">
+            <span class="heading">Already have an account? </span>
+            <br>
+            <a routerLink="/login"  class="sub-heading" >log in</a>
+        </div>
+    </div>
+    </div>
+    </body>
+

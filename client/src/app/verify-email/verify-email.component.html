@@ -1,0 +1,28 @@
+<link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+
+<div class="container">
+    <div class="top">
+        <i class='bx bx-mail-send'></i>
+
+        <p>We've sent an email to {{email}}. Enter the code here to active your account.
+            Please check your Spam/Junk folder if you can't find the activation email.</p>
+    </div>
+    <div class="bottom">
+        <input #OTP1  (keyup)="keytab($event)"
+            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+            type="number" maxlength="1">
+        <input #OTP2 (keyup)="keytab($event)"
+            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+            type="number" maxlength="1">
+        <input #OTP3 (keyup)="keytab($event)"
+            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+            type="number" maxlength="1">
+        <input #OTP4 (keyup)="keytab($event)"
+            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+            type="number" maxlength="1">
+
+    </div>
+    <div class="verify">
+        <button (click)="doVerification(OTP1.value,OTP2.value,OTP3.value,OTP4.value)">Verify</button>
+    </div>
+</div>
