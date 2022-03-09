@@ -11,11 +11,13 @@ import { WalletComponent } from './wallet/wallet.component';
 import { AuthGuard  } from './core/auth.guard.service';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'singup', component: GetStartedComponent },
+  { path: '', component: HomeComponent ,children:[
+    { path: 'login', component: LoginComponent },
+    { path: 'singup', component: GetStartedComponent },
+  ]},
+  
   { path: 'about', component: AboutComponent },
-  { path: 'verify/:email', component: VerifyEmailComponent },
+  { path: 'verify', component: VerifyEmailComponent },
   { path: 'dashboard', component: DashboardComponent ,children:[
     { path: 'wallets' , component: WalletComponent},
     { path: 'profile' , component: ProfileComponent}

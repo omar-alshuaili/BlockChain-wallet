@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,49 +10,81 @@
 
 
 <body>
-    <div class="container">
-    <span class="containerHeading">Sign up</span>
-    
-    <div class="grid">
-        <div class="right">
-            <form class="form" [formGroup]= "form">
-    
-                <div class="inputs">
-                    <input formControlName="name" type="text" placeholder="user name">
-                </div>
-                <div class="inputs">
-                    <input formControlName="email" type="email" placeholder="email">
-                    <strong *ngIf="email.touched && email.invalid" style="color: rgb(168, 0, 50); font-family: 'Courier New', Courier, monospace;" > please Enter a valid email</strong>
-    
-                </div>
-                <div class="inputs">
-                    <input formControlName="password" type="password" placeholder="password">
-                    <strong *ngIf=" (password.dirty || password.touched) && password.invalid" style="color: rgb(168, 0, 50); font-family: 'Courier New', Courier, monospace;" > please Enter a valid password</strong>
-                </div>
-                <div class="inputs">
-                    <input  type="password"  placeholder="confirm password" formControlName="confirmPassword"  >
-                    <strong *ngIf="confirmPassword.value != password.value && confirmPassword.touched" style="color: rgb(168, 0, 50); font-family: 'Courier New', Courier, monospace;" > passwords not matching</strong>
-                    <strong *ngIf="showError && !password.dirty && !email.dirty" style="color: rgb(168, 0, 50); font-family: 'Courier New', Courier, monospace;" >All Fields are required</strong>
-    
-                </div>
-                <div class="terms">
-                    <input type="checkbox"   class="checkbox" #terms >
-                    <span>accept T&C's</span>
-                    <br>
-                    <strong *ngIf="!accepted" style="color: rgb(168, 0, 50); font-family: 'Courier New', Courier, monospace;" >Please accept our T&C's</strong>
-    
-                </div>
-                <strong *ngIf="showError" class="error"   > {{message}}</strong>
-
-                <button  class="signup" type="submit" (click)="signup()"> sign up </button>
-            </form>
+    <div class="">
+    <div
+        class="auth_iframe_app_view--authViewWrapper--30Nza auth_iframe_app_view--brand--2xjL6 auth_branding--brand--3FsKf auth_iframe_app_view--lowerTop--wyEUQ">
+        <div class="auth_iframe_app_view--authViewCenter--3mYPa">
+            <div class="close_button--closeX--2ttg_ auth_iframe_app_view--closeButton--3cADH auth_modal--closeButton--2fwZS"
+                role="button" aria-label="Close" data-testid="close-button"><span class="svg-container"><svg class="svg"
+                        width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M6 5.293l4.789-4.79.707.708-4.79 4.79 4.79 4.789-.707.707-4.79-4.79-4.789 4.79-.707-.707L5.293 6 .502 1.211 1.21.504 6 5.294z"
+                            fill-rule="nonzero" fill-opacity="1" fill="#000" stroke="none"></path>
+                    </svg></span></div><span><span aria-hidden="true" tabindex="0"></span><span>
+                    <form id="auth-view-page"
+                        class="auth_form--form--xKnbM auth_form--modal--2C3yg sign_in_and_up--centerText--2y7mR auth_view--centerText--21TLX">
+                        <div class="auth_form--error--2I51G"></div><button type="button" use="hollow"
+                            data-no-auto-focus="true"
+                            class="auth_view--brandButton--6mVyN auth_view--brandButtonBase--2XVjM auth_branding--brand--3FsKf auth_view--fullWidth--3ydDr landing_form--hollowButton--KiHL5 auth_view--brandButton--6mVyN auth_view--brandButtonBase--2XVjM auth_branding--brand--3FsKf">
+                            <div class="landing_form--googleButtonInner--3RQWE"><span
+                                    class=" landing_form--googleIcon--3Q7rS"><svg class="svg" width="18" height="18"
+                                        viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z"
+                                            fill-rule="evenodd" fill-opacity="1" fill="#4285f4" stroke="none"></path>
+                                        <path
+                                            d="M9.003 18c2.43 0 4.467-.806 5.956-2.18L12.05 13.56c-.806.54-1.836.86-3.047.86-2.344 0-4.328-1.584-5.036-3.711H.96v2.332C2.44 15.983 5.485 18 9.003 18z"
+                                            fill-rule="evenodd" fill-opacity="1" fill="#34a853" stroke="none"></path>
+                                        <path
+                                            d="M3.964 10.712c-.18-.54-.282-1.117-.282-1.71 0-.593.102-1.17.282-1.71V4.96H.957C.347 6.175 0 7.55 0 9.002c0 1.452.348 2.827.957 4.042l3.007-2.332z"
+                                            fill-rule="evenodd" fill-opacity="1" fill="#fbbc05" stroke="none"></path>
+                                        <path
+                                            d="M9.003 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.464.891 11.428 0 9.002 0 5.485 0 2.44 2.017.96 4.958L3.967 7.29c.708-2.127 2.692-3.71 5.036-3.71z"
+                                            fill-rule="evenodd" fill-opacity="1" fill="#ea4335" stroke="none"></path>
+                                    </svg></span>
+                                <div class="landing_form--googleText--3r2h6">Continue with Google</div>
+                            </div>
+                        </button><span class="sign_in_and_up--orBlock--3kqvy">or</span><input name="email"
+                            placeholder="Email" type="email" id="email" autocomplete="username" autocapitalize="off"
+                            autocorrect="off"
+                            class="basic_form--textInput--3ZlM2 basic_form--input--3cO2P form_inputs--input--r-7Uo form_inputs--brand--nxF5w auth_branding--brand--3FsKf  lazy_input--lazyInput--2kTZE"
+                            dir="auto" value="">
+                        <div style="height: 16px;"></div><input name="password" type="password" placeholder="Password"
+                            autocapitalize="off" autocorrect="off" autocomplete="current-password" id="current-password"
+                            class="basic_form--textInput--3ZlM2 basic_form--input--3cO2P form_inputs--input--r-7Uo form_inputs--brand--nxF5w auth_branding--brand--3FsKf  lazy_input--lazyInput--2kTZE"
+                            dir="auto" value="">
+                        <div style="height: 16px;"></div><button type="submit"
+                            class="auth_view--brandButton--6mVyN auth_view--brandButtonBase--2XVjM auth_branding--brand--3FsKf auth_view--fullWidth--3ydDr sign_in_and_up--primaryWideButton--15okP auth_view--primaryWideButton--3NOmp auth_view--wideButton--dqVKk auth_view--fullWidth--3ydDr">Log
+                            in</button>
+                        <div style="height: 16px;"></div>
+                        <div class="sign_in_and_up--footer--sCgNV auth_view--footer--2y326">
+                            <div class="sign_in_and_up--footerButtonRow--1L1a9 auth_view--footerButtonRow--1r5Q6"><a
+                                    class="basic_form--inlineLink--3sRG- blue_link--blueLink--22X56 sign_in_and_up--signUpWithSaml--22Lub sign_in_and_up--link--2O7Hy"
+                                    rel="noopener">Log in with SAML SSO</a></div>
+                            <div style="height: 16px;"></div>
+                            <div class="sign_in_and_up--footerRow--pB9-z auth_view--footerButtonRow--1r5Q6"><a
+                                    tabindex="-1"
+                                    class="sign_in_and_up--forgotPassword--m0ebi sign_in_and_up--link--2O7Hy">Forgot
+                                    password?</a></div>
+                            <div style="height: 16px;"></div>
+                            <div class="sign_in_and_up--footerRow--pB9-z auth_view--footerButtonRow--1r5Q6">
+                                <div class="sign_in_and_up--switchFormText--aon-9 auth_view--footerText--1PPnJ">No
+                                    account?<a tabindex="-1"
+                                        class="sign_in_and_up--switchFormLink--uuDAF sign_in_and_up--link--2O7Hy">Create
+                                        one</a></div>
+                            </div>
+                        </div>
+                        <div style="height: 16px;"></div>
+                        <div class="sign_in_and_up--termsAndRecaptchaWrapper--1aZV0 auth_view--footerText--1PPnJ">
+                            <div class="recaptcha--recaptchaText--3ATGk">This site is protected by reCAPTCHA and the
+                                Google <a href="https://policies.google.com/privacy" target="_blank">Privacy Policy</a>
+                                and <a href="https://policies.google.com/terms" target="_blank">Terms of Service</a>
+                                apply.</div>
+                        </div>
+                    </form>
+                </span><span aria-hidden="true" tabindex="0"></span></span>
         </div>
-        <div class="left">
-            <span class="heading">Already have an account? </span>
-            <br>
-            <a routerLink="/login"  class="sub-heading" >log in</a>
-        </div>
+        <div class="flash_view--flashes--1wuM5"></div>
     </div>
-    </div>
-    </body>
-
+</div>
+</body>

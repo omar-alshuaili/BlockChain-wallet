@@ -8,14 +8,21 @@
  
 </head>
    <main>
-     <div class="over"></div>
+     <div  class="over-form over">
+    <app-login class="FormOver" *ngIf="login"></app-login>
+    <app-get-started class="FormOver" ></app-get-started>
+     </div>
+
+     
+
     <div class="scroll-downs">
       <div class="mousey">
         
         <div class="scroller"></div>
       </div>
+      <div class="text">Scroll down</div>
     </div>
-        <section class="grid section-one">
+        <section class="grid section section-one">
           <div class="right">
             <img class="img-section-one img" src="../assets/home.png" alt="crypto">
         </div>
@@ -25,7 +32,7 @@
                 </div>
                 <div class="signup-form">
                     <input for="email" type="email" placeholder="Enter your email" formControlName="email"  >
-                    <button  routerLink="/singup"  type="submit"> sign up </button>
+                    <button  (click)="showOverForm(1)"  type="submit"> sign up </button>
                 </div>
 
             </div>
@@ -35,7 +42,7 @@
       
         </section>
         <!--section 2-->
-        <section class="grid section-two">
+        <section class="grid section section-two">
             <table class="table">
                 
                 <tbody >

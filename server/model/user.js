@@ -24,7 +24,13 @@ isVerified:{
     type:Boolean,
     default: false
 },
-emailToken:{type:String,expires:'2s'},
+OTP:{ type:Number,
+
+},
+OTPExpiry:{
+type:Date,
+default:Date.now
+},
 wallets:String,
 date:{
     type: Date,

@@ -22,6 +22,7 @@ var querystring = require('querystring');
 router.post('/register', async (req, res) => {
 
 
+  const OTP = await Math.floor(1000 + Math.random() * 9000);
 
 
 
@@ -47,7 +48,7 @@ router.post('/register', async (req, res) => {
     name: req.body.name,
     email: req.body.email,
     password: hashPassword,
-    emailToken: crypto.randomBytes(64).toString('hex'),
+    OTP: OTP.toString(),
     isVerified: false,
    
 
@@ -310,17 +311,21 @@ router.get('/verify:email', async (req, res) => {
 
 
   try {
-    console.log(1);
-    const user = await Users.findOne({ emailToken: req.params.email })
+
+    const user = await Users.findOne({ email: req.params.email })
     if (!user) {
       return res.status(404).json('Token is not valid.')
     }
+    var diff = (user.OTPExpiry - Data.now) ; 
 
+    var isExpiried = Math.round(((diff % 86400000) % 3600000) / 60000) <=0 ? true:false; // minutes
+    if(isExpiried){
+      return res.status(404).json('OTP has expired');
+    }
 
-    user.emailToken = null;
+    user.OTP = null;
     user.isVerified = true;
     await user.save()
-
 
     return res.status(200).json('Thanks! Your email is verified you can log in now')
 

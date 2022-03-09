@@ -15,6 +15,9 @@ export class HomeComponent   {
   coin3?:number
   coinList  = ['BTC','XRP','ENS']
   form: any;
+  showForm:boolean = false;
+  signup : boolean = false;
+  login : boolean = false;
   constructor(private api : CryptoApiService){
     this.form = new FormGroup({
       email: new FormControl(null, [
@@ -53,6 +56,14 @@ for(let i in this.data){
  }
 
 }
+
+  showOverForm(form:number){
+    if(form ==1){
+
+      this.showForm = true;
+      this.signup = true;
+    }
+  }
 
 }
   
