@@ -22,6 +22,10 @@
             type="number" maxlength="1">
 
     </div>
+    <div class="invalid-feedback">
+        {{errorMess}}
+    </div>
+
     <div class="verify">
         <button (click)="doVerification(OTP1.value,OTP2.value,OTP3.value,OTP4.value)">Verify</button>
     </div>
