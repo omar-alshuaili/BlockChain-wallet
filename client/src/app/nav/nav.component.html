@@ -1,53 +1,18 @@
 
-<header class="Header">
-    <div class="content">
-        <div class="row align-items-center">
-            <div class="col-6  col-md-4 col-lg-2"><a class="w-100" href="/"><img class="Header__logo"
-                        src="../assets/logo.png" alt="open coin"></a></div>
-                       
- 
-            <div class="col-2 offset-4 d-none d-lg-block">
-                <button class="Button Button_gray " routerLink="/login"
-                routerLinkActive="active" ><span class="Button__text Button__text_normal">Log in</span></button>
-                <button class="Button Button_gray signup" routerLink="/singup"
-                routerLinkActive="active"><span class="Button__text Button__text_normal">get
-                    started</span></button>
+ <nav class="panel top main-nav padding-top-3 padding-bottom-3 relative">
+    <div class="sections desktop fix-12-12">
+        <div class="left">
+            <a href="https://opencoin.shop" class="logo vertical-top">
+<img src="../../assets/logo.png" width="120"  alt="">
+            </a>
+            <a href="#features" class="weight-7 p smallest link uppercase shift-down-3 vertical-middle margin-left-2 hideForPhablet">features</a>
+            <a href="#About" class="weight-7 p smallest link uppercase shift-down-3 vertical-middle margin-left-2 hideForPhablet">About</a>
+        </div>
 
-            </div>
-
-
-            <div class="col-lg-1 col-6">
-                <div class="SandwichMenu">
-                    <div class="sandwich" id="sandwich">
-                        <div class="sandwich__line sandwich__line_top"></div>
-                        <div class="sandwich__line sandwich__line_middle"></div>
-                        <div class="sandwich__line sandwich__line_bottom"></div>
-                    </div>
-                    <div class="SandwichMenu__menu-wrapper">
-                        <div id="sandwich-menu__overlay" class="sandwich-menu__overlay"></div>
-                        <div class="SandwichMenu__menu-container sandwich-menu">
-                            <div class="sandwich-menu__inner">
-
-                                <ul class="sandwich-menu__list">
-                                    <li class="sandwich-menu__link"><a aria-current="page" routerLink="/" class="active"
-                                            >Home</a></li>
-                                    <li class="sandwich-menu__link"><a href="/en/retail"></a></li>
-                                    <li class="sandwich-menu__link"><a routerLink="/about"
-                                            routerLinkActive="active">about us</a></li>
-                                    <li class="sandwich-menu__link"><a routerLink="/contact" routerLinkActive="active"
-                                            href="/en/cases">Contact us</a></li>
-                                </ul>
-                                <div class="sandwich-menu__contacts"><button  routerLink="/singup"
-                                    class="Button Button_gray"><span
-                                    class="Button__text Button__text_normal">get started</span>
-                                        </button>
-                                      </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="right">
+            <a *ngIf="!auth.loggedIn" href="/signup" class="weight-7 button small pale uppercase green rounded flat noShadow margin-right-3">sign up →</a>
+            <a *ngIf="!auth.loggedIn" (click)="showAuthForm('login')" class="weight-7 link p smallest uppercase crop" href="/login">Log in</a>
+            <a *ngIf="auth.loggedIn" (click)="auth.logout()" class="weight-7 link p smallest uppercase crop">Log out</a>
         </div>
     </div>
-</header>
-
+</nav>

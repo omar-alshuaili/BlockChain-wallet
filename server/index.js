@@ -11,6 +11,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 //importing routes
 const authRoute = require('./routes/auth')
+const user = require('./routes/user')
 const ApiRoute = require('./routes/crypto-api')
 
 dotenn.config();
@@ -43,9 +44,10 @@ app.use(express.json());
 
 //Route Middelwares
 app.use('/api/user',authRoute)
-app.use('/user',authRoute)
+app.use('/user',user)
+
 app.use('/crypto',ApiRoute)
 
-app.listen(3000,()=>{
+app.listen(8000,()=>{
     console.log('app running');
 })

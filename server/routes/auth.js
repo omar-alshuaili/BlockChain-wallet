@@ -12,30 +12,43 @@ var https = require("https");
 dotenn.config();
 var request = require('request');
 var Cryptoapis = require('cryptoapis');
+const ObjectID = require('mongodb').ObjectID;
+
+//aws
+const aws = require('aws-sdk');
+const multer = require('multer');
+const multerS3 = require('multer-s3');
+
 //validation 
 const Joi = require('@hapi/joi')
 var querystring = require('querystring');
+
+//google
+const {OAuth2Client} = require('google-auth-library');
+const client = new OAuth2Client(process.env.CLIENT_ID_GOOGLE);
 
 
 
 
 router.post('/register', async (req, res) => {
 
+  console.log(1);
 
-  const OTP = await Math.floor(1000 + Math.random() * 9000);
-
+  // const OTP = await Math.floor(1000 + Math.random() * 9000);
 
 
   sgMail.setApiKey(process.env.SENDGRID_API_KEY)
   // validation before adding users 
 
   const { error } = validateUserRegister(req.body)
-  if (error) return res.status(400).send(error.details[0].message)
 
+
+  if (error) return res.json(error.details[0].message)
 
 
   const emailExist = await Users.findOne({ email: req.body.email })
-  if (emailExist) return res.status(400).send('email already exists')
+  console.log(emailExist);
+  if (emailExist)  return res.status(400).send('email already exists')
 
 
   // hash the password
@@ -43,30 +56,32 @@ router.post('/register', async (req, res) => {
   const hashPassword = await bcrypt.hash(req.body.password, salt);
 
 
-
+  var code =  await Math.floor(1000 + Math.random() * 9000)
   const user = new Users({
-    name: req.body.name,
+    
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
     email: req.body.email,
     password: hashPassword,
-    OTP: OTP.toString(),
     isVerified: false,
-   
+    jwtToken: '',
+    OTP: code
 
   })
 
 
 
 
-  //     sendGrid.setApiKey(process.env.SENDGRID_API_KEY)
+
 
 
   const msg = {
     from: 'project300-11@outlook.com',
     to: user.email,
     subject: 'Thanks for joining us – Please verfiy your account',
-    text: `Hello ${user.name},
+    text: `Hello ${user.firstName},
         To start using your account please use this code to verify your account
-        http://localhost:4200/verify-email?token=${user.emailToken}
+        ${code}
         `,
     html: `
         <!DOCTYPE html>
@@ -150,7 +165,7 @@ router.post('/register', async (req, res) => {
 
 </head>
 <body style="background-color: #e9ecef;">
-<h1 style="margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;">Hello ${user.name},</h1>
+<h1 style="margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;">Hello ${user.firstName},</h1>
   <!-- start body -->
   <table border="0" cellpadding="0" cellspacing="0" width="100%">
 
@@ -191,7 +206,7 @@ router.post('/register', async (req, res) => {
           <!-- start copy -->
           <tr>
             <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
-              <p style="margin: 0;">Tap the button below to confirm your email address.</p>
+              <p style="margin: 0;">use this code to verify your account</p>
             </td>
           </tr>
           <!-- end copy -->
@@ -205,7 +220,7 @@ router.post('/register', async (req, res) => {
                     <table border="0" cellpadding="0" cellspacing="0">
                       <tr>
                         <td align="center" bgcolor="#1a82e2" style="border-radius: 6px;">
-                          <a href="http://localhost:4200/verify-email?token=${user.emailToken}" target="_blank" style="display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;">Verify now</a>
+                          <a  target="_blank" style="display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;">${code}</a>
                         </td>
                       </tr>
                     </table>
@@ -216,19 +231,12 @@ router.post('/register', async (req, res) => {
           </tr>
           <!-- end button -->
 
-          <!-- start copy -->
-          <tr>
-            <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
-              <p style="margin: 0;">If that doesn't work, copy and paste the following link in your browser:</p>
-              <p style="margin: 0;"><a href="http://localhost:4200/verify-email?token=${user.emailToken}" target="_blank">http://localhost:4200/verify-email?token=${user.emailToken}</a></p>
-            </td>
-          </tr>
-          <!-- end copy -->
+  
 
           <!-- start copy -->
           <tr>
             <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; border-bottom: 3px solid #d4dadf">
-              <p style="margin: 0;">Omar's lovely website,<br>Omar</p>
+              <p style="margin: 0;">opencoin.shop,<br>the team</p>
             </td>
           </tr>
           <!-- end copy -->
@@ -272,63 +280,78 @@ router.post('/register', async (req, res) => {
 //log in 
 router.post('/login', async (req, res) => {
 
-  //validation before logginging users 
-
-
-  const { error } = validateUserLogin(req.body)
-  if (error) return res.status(400).send(error.details[0].message)
 
   //check if the email exists 
-  const user = await Users.findOne({ email: req.body.email })
-  if (!user) return res.status(400).send('email or password is wrong')
+  let user = await Users.findOne({ email: req.body.email })
+
+  if (!user) return res.status(400).json('email or password is wrong')
 
   //password is correct?
   const validPass = await bcrypt.compare(req.body.password, user.password)
-
+  if (!validPass) return res.status(400).json('not the correct password')
   //check if verified
   const isVerified = await user.isVerified
-  if (!isVerified) return res.status(400).send("Please verify your email first");
-
-
-
+  if (!isVerified) return res.status(400).json("Please verify your email first");
 
 
   //create token
-  res.send(JSON.stringify('you can log in !'))
-  const token = JWT.sign({ _id: user._id }, process.env.tokerSec)
-  // res.header('auth-token',token).send(token)
+  const jwtToken = JWT.sign({ _id: user._id }, process.env.tokenSec , {
+    expiresIn: "2m",
+    })
+  const refreshToken = JWT.sign({ _id: user._id}, process.env.refreshTokenSec, {
+      expiresIn: "10m",
+  });
 
+ 
+    user.jwtToken = jwtToken
+    await user.save()
+  
+  return res.status(200).json(
+    {
+      _id: user._id,
+      jwtToken :user.jwtToken,
+      pic: user.pic
+    }
+
+  );
 
 });
 
 
 
+router.get('/:id',async(req,res) =>{
+  const user = await Users.findById(req.params.id)
+  return res.json({_id:user._id,pic:user.pic,name:user.firstName,email:user.email})
+})
 
 
 
-
-router.get('/verify:email', async (req, res) => {
+router.post('/verify/:email', async (req, res) => {
 
 
   try {
+    console.log(req.email);
 
     const user = await Users.findOne({ email: req.params.email })
+    console.log(req.body.otp );
     if (!user) {
       return res.status(404).json('Token is not valid.')
     }
-    var diff = (user.OTPExpiry - Data.now) ; 
 
-    var isExpiried = Math.round(((diff % 86400000) % 3600000) / 60000) <=0 ? true:false; // minutes
-    if(isExpiried){
-      return res.status(404).json('OTP has expired');
+
+    if(!user.OTP){
+      return res.status(404).json('Please check your email to log in')
     }
 
-    user.OTP = null;
-    user.isVerified = true;
-    await user.save()
-
-    return res.status(200).json('Thanks! Your email is verified you can log in now')
-
+    if(req.body.otp != user.OTP){
+      return res.status(400).send('please enter the correct code')
+    }
+    else{
+      user.OTP = ''
+      user.isVerified = true;
+      await user.save()
+      res.status(200).json('verified')
+    }
   }
   catch (error) {
 
@@ -337,10 +360,139 @@ router.get('/verify:email', async (req, res) => {
 })
 
 
+const s3 = new aws.S3();
+aws.config.update({
+    accessKeyId: `${process.env.AWS_ACCESS_KEY_ID}`,
+    secretAccessKey: `${process.env.AWS_SECRET_ACCESS_KEY}`,
+    region: 'eu-west-1',
+    signatureVersion: 'v4',
+});
+
+upload = multer({
+  fileFilter: (req, file, cb) => {
+      if (file.mimetype === 'application/octet-stream' || file.mimetype === 'video/mp4'
+          || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+          cb(null, true);
+      } else {
+          cb(new Error('Invalid file type'), false);
+      }
+  },
+  storage: multerS3({
+      acl: 'public-read',
+      s3,
+      bucket:`${process.env.AWS_BUCKET_NAME}` ,
+      key: function (req, file, cb) {
+          req.file = file.originalname;
+          cb(null, file.originalname);
+      }
+  })
+})
+
+
+router.post('/upload',upload.array('file', 1), async(req,res)=>{
+  
+  try{
+    let id = req.file.split('.')[0];
+    const user = await Users.findById(id)
+
+    user.pic = req.file
+    await user.save()
+    res.send( {file: req.file });
+  }
+  catch(e){
+    res.json(e)
+  }
+})
+router.get('/getpic/:id',(req,res)=>{
+  aws.config.update({
+    accessKeyId: `${process.env.AWS_ACCESS_KEY_ID}`,
+    secretAccessKey: `${process.env.AWS_SECRET_ACCESS_KEY}`,
+});
+
+
+const s3 = new aws.S3();
+
+
+  async function getImage(){
+    const data =  s3.getObject(
+      {
+          Bucket: `${process.env.AWS_BUCKET_NAME}`,
+          Key: req.params.id +'.png'
+      }
+      
+    ).promise();
+    return data;
+  }
+  getImage()
+  .then((img)=>{
+   let image="'data:image/jpeg;base64," + encode(img.Body) ;
+   image = image.toString()
+   res.json({image})
+   }).catch((e)=>{
+         res.send(e)
+   }) 
+
+
+  function encode(data){
+    let buf = Buffer.from(data);
+    let base64 = buf.toString('base64');
+    return base64
+    }
+
+})
+
+function generateJwtToken() {
+  // create token that expires in 15 minutes
+  const tokenPayload = { exp: Math.round(new Date(Date.now() + 15*60*1000).getTime() / 1000) }
+  return `fake-jwt-token.${btoa(JSON.stringify(tokenPayload))}`;
+}
+
+
+
+var https = require("https");
+
+var options = {
+  "method": "POST",
+  "hostname": "rest.cryptoapis.io",
+  "path": "/v2/wallet-as-a-service/wallets/6236127f41012f0006bd6da3/ethereum/ropsten/addresses/0xd1b0b13114b6fbac0c4e1e461d36c0933c2b454c/all-transaction-requests",
+  "qs": {"context":"yourExampleString"},
+  "headers": {
+    "Content-Type": "application/json",
+    "X-API-Key": "8b06bb20d76030cdad9d3ace873c3b6541393099"
+  }
+};
+
+var req = https.request(options, function (res) {
+  var chunks = [];
+
+  res.on("data", function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on("end", function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
+});
+
+req.write(JSON.stringify({
+    "context": "yourExampleString",
+    "data": {
+        "item": {
+            "callbackSecretKey": "yourSecretString",
+            "callbackUrl": "https:\/\/example.com",
+            "feePriority": "standard",
+            "note": "yourAdditionalInformationhere",
+            "recipientAddress": "0x1e6ed0d09b5054b968a4fe5f4859f3bd6b85297b"
+        }
+    }
+}));
+
+req.end();
+
 
 async function createID(email){
 
-  const user = await Users.findOne({ email: email })
 
   var body = {
 
@@ -368,13 +520,21 @@ request.post({
 }, 
 function (err, res, data) {
   var jsonResponse = JSON.parse(data);
+  jsonResponse.data.item.address
+  
 
- user.wallets =  jsonResponse.data.item.address
- user.save()
  
 
-}
-)
+});
+const user = await Users.updateOne({ email: email },{
+  $push:{
+    wallets:{
+      "coin":"Bitcoin",
+      "address" : `${'jsonResponse.data.item.address'}`
+    }
+  }
+    })
+
 
 console.log(user.wallets);
 

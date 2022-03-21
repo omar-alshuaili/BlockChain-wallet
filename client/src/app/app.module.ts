@@ -8,13 +8,18 @@ import { LoginComponent } from './login/login.component';
 import { NavComponent } from './nav/nav.component';
 import {HttpClientModule} from '@angular/common/http';
 import { GetStartedComponent } from './get-started/get-started.component';
-import { AboutComponent } from './about/about.component';
+import { SafeHtmlPipe } from './user-dashboard/profile/profile.pipe';
 import { HomeComponent } from './home/home.component';
-import { WalletComponent } from './wallet/wallet.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { ProfileComponent } from './profile/profile.component';
-import { TransferPopupComponent } from './transfer-popup/transfer-popup.component';
-import { VerifyEmailComponent } from './verify-email/verify-email.component'
+import { WalletComponent } from './user-dashboard/wallet/wallet.component';
+import { DashboardComponent } from './user-dashboard/dashboard/dashboard.component';
+import { ProfileComponent } from './user-dashboard/profile/profile.component';
+import { VerifyEmailComponent } from './verify-email/verify-email.component';
+import { SellAndBuyComponent } from './user-dashboard/sell-and-buy/sell-and-buy.component';
+import { SendComponent } from './user-dashboard/send/send.component';
+import { RequestComponent } from './user-dashboard/request/request.component';
+import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component'
+
 
 @NgModule({
   declarations: [
@@ -22,16 +27,20 @@ import { VerifyEmailComponent } from './verify-email/verify-email.component'
     LoginComponent,
     NavComponent,
     GetStartedComponent,
-    AboutComponent,
+    SafeHtmlPipe,
     HomeComponent,
     WalletComponent,
     DashboardComponent,
     ProfileComponent,
-    TransferPopupComponent,
     VerifyEmailComponent,
+    SellAndBuyComponent,
+    SendComponent,
+    RequestComponent,
+    ForgetPasswordComponent,
+    ResetPasswordComponent,
   ],
   imports: [
-    
+
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,

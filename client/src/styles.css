@@ -6,3 +6,8 @@
   --primary-White: 238, 238, 238;
   --primary-border-radius: 0.5rem;
 }
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}

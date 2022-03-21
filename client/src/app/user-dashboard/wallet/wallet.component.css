@@ -1,0 +1,60 @@
+
+
+.content{
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+
+}
+.wallets{
+
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.flex{
+  display: flex;
+}
+.card{
+  margin: 20px;
+}
+.addwallet{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.walletAdd{
+
+}
+.hide{
+  opacity: 1;
+  display: block;
+  -moz-animation: cssAnimation .5s forwards;
+  /* Firefox */
+  -webkit-animation: cssAnimation .5s forwards;
+  /* Safari and Chrome */
+  -o-animation: cssAnimation .5s forwards;
+  /* Opera */
+  animation: cssAnimation  .5s forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+@keyframes cssAnimation {
+  100% { opacity:0 ; display: none;}
+}
+@-webkit-keyframes cssAnimation {
+  100% { opacity: 0;display: none; }
+}
+@media (max-width: 670px) {
+.content{
+
+  height: max-content;
+  position: absolute;
+  padding-bottom: 6rem;
+}
+
+}

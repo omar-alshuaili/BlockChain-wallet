@@ -1,0 +1,67 @@
+<!-- <div class="">
+
+    <div class="wallet-container">
+
+        <div *ngFor="let _ of [].constructor(5)" class="wallets">
+            <div class="card">
+                <div class="rectangle"></div>
+                <div>
+                    <div class="card-name">Bitcion</div>
+                    <!--       <img src="Logo Paypal.svg" alt="" class="card-name"> -->
+
+<!-- <div class="amount">$338.34</div>
+                    <div class="address">tb1q78gx36lylfp3cxcfkupjfepdvmt7jr0k0r2nn2</div>
+                    <div class="siluet-1"></div>
+                    <div class="siluet-2"></div>
+                    <img src="./Siluet.svg" alt="">
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="info">
+        <button>transfer</button>
+    </div>
+</div> -->
+<link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+
+<div class="content">
+    <div class="addwallet">
+        <button onclick='copyAdress()' (click)="showCopy()" class="btn btn-primary walletAddBtn">
+            <i class='bx bx-wallet'></i>add new wallet
+        </button>
+    </div>
+
+    <div class="wallets flex">
+
+        <div *ngFor="let wallets of wallet; let i = index" class="card"
+            style="width: 18rem; box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px; border: none; border-radius: 12px;">
+
+            <img class="card-img-top" style="width: 40%; margin: auto; margin-top: 20px;"
+                src="../../../assets/{{wallets.coin|lowercase}}.png " alt="Card image cap">
+            <p *ngIf="showCopyMess" class="copyMess" style="height: 100%; padding: 0; margin: 12px; ">copied !</p>
+
+            <div class="card-body">
+                <h5 class="card-title">{{wallets.coin | titlecase}} </h5>
+                <p class="card-text">Address</p>
+                <p class="card-text address" style=" white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;">{{wallets.address}}</p>
+                <div class="copy"
+                    style="display: flex; justify-content: center; align-items: center; text-align: center; vertical-align:middle;">
+                    <button onclick='copyAdress()' (click)="showCopy()" class="btn btn-primary">
+                        <i class=" bx bx-copy btn btn-primary"></i>Copy Address
+                    </button>
+
+                </div>
+            </div>
+
+        </div>
+        
+
+    </div>
+
+
+</div>

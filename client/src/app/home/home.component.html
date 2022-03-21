@@ -1,74 +1,139 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
- 
-</head>
-   <main>
-     <div  class="over-form over">
-    <app-login class="FormOver" *ngIf="login"></app-login>
-    <app-get-started class="FormOver" ></app-get-started>
-     </div>
+<app-nav></app-nav>
+<section style="height: auto; position: relative;">
+  <div class="content">
 
-     
+    <div class="container-outside">
+      <div class="wrap left padding-top-0 padding-bottom-0">
+        <div class="fix-12-12">
 
-    <div class="scroll-downs">
-      <div class="mousey">
-        
-        <div class="scroller"></div>
-      </div>
-      <div class="text">Scroll down</div>
-    </div>
-        <section class="grid section section-one">
-          <div class="right">
-            <img class="img-section-one img" src="../assets/home.png" alt="crypto">
-        </div>
-            <div class="left">
-                <div class="heading" >World's best crypto trading app</div>
-                <div class="sub-heading"> start trading now
-                </div>
-                <div class="signup-form">
-                    <input for="email" type="email" placeholder="Enter your email" formControlName="email"  >
-                    <button  (click)="showOverForm(1)"  type="submit"> sign up </button>
-                </div>
 
+          <div class="flex fixedSpaces reverse">
+            <div
+              class="col-5-12 col-tablet-3-5 col-phablet-1-1 padding-top-phablet-0 padding-top-tablet-5 padding-top-10">
+
+              <h1 class="boldest largest margin-bottom-3 hover-header bold padding-top-phablet-3"
+                style="line-height: 1.05">
+                One-stop platform for <span class="text-blue underline-1 dropdownTrigger"
+                  data-dropdown-id="description-dropdown">crypto</span> trading.
+              </h1>
+              <p class="fix-5-12 toLeft margin-bottom-4 trim large">Opencoin is the easiest place to buy and sell
+                cryptocurrency.</p>
+              <div class="fix-12-12 flex verticalCenter">
+                <a routerLink="/signup"
+                  class="button blue rounded weight-6 cropLeft margin-bottom-phablet-2 js-upload-archive dz-clickable">Get
+                  started now</a>
+
+              </div>
             </div>
-           
+            <div class="col-7-12 col-tablet-2-5 col-phablet-1-1">
+              <img src="../../assets/home.svg" alt="" class="absolute p-phablet-relative">
+            </div>
+          </div>
+        </div>
 
-            
-      
-        </section>
-        <!--section 2-->
-        <section class="grid section section-two">
-            <table class="table">
-                
-                <tbody >
-                  <tr>
-                    <th scope="row"></th>
-                    <td class="bitcoin ">Bitcoin</td>
-                    <td></td>
-                    <td>{{coin1 | number}} $</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" ></th>
-                    <td class="ethereum">ethereum</td>
-                    <td></td>
-                    <td>{{coin2 | number}} $</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" ></th>
-                    <td class="ripple">Ripple</td>
-                    <td></td>
-                    <td>{{coin3 | number}} $</td>
-                    
-                  </tr>
-                </tbody>
-              </table>
-             
-        </section>
-        
-    </main>
-</html> 
+
+      </div>
+
+    </div>
+
+
+
+
+
+  </div>
+  <svg class="background" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1475 1223">
+    <path
+      d="M647.036 250.461L531.948 115.608C451.48 21.3209 337.009 -21.3419 217.482 11.4927C99.922 43.7867 -16.0854 201.911 2.31138 322.43L58 687.25L92.0663 910.421C124.032 1119.83 325.754 1259.08 532.896 1214.74L541 1213L1326.03 1037.35C1381.45 1024.95 1424.52 981.352 1436.25 925.793L1470.68 762.652C1478.08 727.578 1475.57 691.136 1463.42 657.409L1453.38 629.532C1431.77 569.511 1373.46 530.667 1309.75 533.839L1081.99 545.178C1004.94 549.014 933.006 506.595 899.071 437.311L892.815 424.538C871.101 380.206 833.226 345.88 786.979 328.618L726.351 305.988C695.624 294.519 668.327 275.409 647.036 250.461Z"
+      fill="#D4E2FF" />
+  </svg>
+
+  <div class="content">
+    <div class="container-outside">
+      <section class="slide" data-name="features">
+        <div class="content">
+          <div class="container-outside">
+            <div class="wrap padding-10 padding-phablet-6">
+              <h3 class="smaller">What do we offer?</h3>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="content" id="features">
+    <div class="container-outside">
+      <div class="wrap flex reverse left padding-top-4 padding-bottom-0 features-container">
+        <div class="col-5-12 col-tablet-1-1 margin-bottom-tablet-5">
+          <h2 class="boldest large margin-bottom-2 bold padding-top-tablet-4">Real-time price update<span
+              class="italic text-purple relative inlineBlock"> with charts</span></h2>
+          <p class="large margin-bottom-3 trim">be up to udate with<br>Market changes</p>
+        </div>
+        <div class="wallets">
+
+          <div class="card"
+            style="width: 25rem; height: 12rem; box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px; border: none; border-radius: 12px;">
+            <div class="card-body2">
+              <h5 class="card-title"></h5>
+              <p class="card-text address" style=" white-space: nowrap;
+                  overflow: hidden;
+                  text-overflow: ellipsis;"></p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <div class="content">
+    <div class="container-outside">
+      <section class="slide" data-name="features">
+        <div class="content">
+          <div class="container-outside">
+            <div class="wrap padding-10 padding-phablet-6">
+              <h3 class="smaller">Meet the team</h3>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+
+  <div class="content" id="About" >
+    <div class="container-outside">
+      <div class="wrap flex reverse left padding-top-4 padding-bottom-0 features-container">
+        <div class="col-5-12 col-tablet-1-1 margin-bottom-tablet-5">
+          <h2 class="boldest large margin-bottom-2 bold padding-top-tablet-4">The team<span
+              class="italic text-purple relative inlineBlock"></span></h2>
+          <p class="large margin-bottom-3 trim">We are a small international team based in the lovely city of
+            Sligo<br>Together, We are building the world's greatest crypto trading app</p>
+        </div>
+        <div class="photo">
+          <div class="top" style="display:flex;">
+            <img width="150px" src="../../assets/team/ahmed.jpg" alt="">
+            <img width="150px" src="../../assets/team/bashar.jpg" alt="">
+          </div>
+          <div class="bottom" style="display:flex;">
+            <img  width="150px" src="../../assets/team/illia.png" alt="">
+            <img width="150px" src="../../assets/team/omar.png" alt="">
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+

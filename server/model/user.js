@@ -1,37 +1,50 @@
 const mongoose = require('mongoose');
 
+
+
 const userSchema = new mongoose.Schema({
-name :{
+firstName :{
     type:String,
-    required:true,
+
+    min:3,
+    max:255,
+},
+lastName :{
+    type:String,
+
     min:3,
     max:255,
 },
 email :{
     type:String,
-    required:true,
+
     max:255,
     min:6
 },
 password :{
     type:String,
-    required:true,
+
     min:6,
     max:1024
    
+},
+pic :{
+    type:String,
+    default:'default'
 },
 isVerified:{
     type:Boolean,
     default: false
 },
-OTP:{ type:Number,
+OTP:{ type:String,
+},
 
-},
-OTPExpiry:{
-type:Date,
-default:Date.now
-},
-wallets:String,
+jwtToken:{type:String},
+
+wallets:[{
+  coin:String,
+  address:String  
+}],
 date:{
     type: Date,
     default:Date.now

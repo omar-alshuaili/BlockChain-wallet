@@ -1,20 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-
-<body>
-    <div class="">
+<!-- <div class="form">
     <div
         class="auth_iframe_app_view--authViewWrapper--30Nza auth_iframe_app_view--brand--2xjL6 auth_branding--brand--3FsKf auth_iframe_app_view--lowerTop--wyEUQ">
         <div class="auth_iframe_app_view--authViewCenter--3mYPa">
-            <div class="close_button--closeX--2ttg_ auth_iframe_app_view--closeButton--3cADH auth_modal--closeButton--2fwZS"
+            <div class="close_button--closeX--2ttg_ auth_iframe_app_view--closeButton--3cADH auth_modal--closeButton--2fwZS" id="closeButton"
                 role="button" aria-label="Close" data-testid="close-button"><span class="svg-container"><svg class="svg"
                         width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -86,5 +74,108 @@
         </div>
         <div class="flash_view--flashes--1wuM5"></div>
     </div>
+</div> -->
+<div class="content">
+    <div class="row h-100 m-0">
+
+        <div class="d-none d-lg-block col-lg-5 col-xl-4 h-100"
+            style="background-color: #d4e0f5 !important; background-size: 30% !important; background: url('../../assets/vault-open.svg') center no-repeat;">
+
+            <div class="p-5 text-center">
+                <a href="/">
+                    <img src="../../assets/logo.png" width="220px" height="120px">
+                </a>
+            </div>
+        </div>
+   
+
+        <div class="col-md-6 offset-md-3 col-lg-7 offset-lg-0 col-xl-8 p-0 d-flex align-items-center">
+            <div class="m-auto p-5 col-lg-10 col-xl-6" style="max-width: 500px">
+                <div class="py-4 d-block d-lg-none">
+                    <a href="/">
+                        <img src="../../assets/logo.png" >
+                    </a>
+                </div>
+
+
+                <h5 class="mb-4">Sign in to openshop</h5>
+
+
+               
+
+               
+
+                <form action="/user/ajax/login" method="post" id="login-form" class="needs-validation" novalidate=""
+                    data-submit="ajax" data-loading-title="Logging in..." data-success="redirect"
+                    >
+                    
+
+                    <div class="form-group  mb-4">
+                        <div class="name">
+                            <div class="">
+                                <label for="login_email">First name</label>
+                                <input tabindex="1" type="text" [formControl]="firstname" name="firstname"
+                                    class="form-control" id="name" required="true" autofocus="">
+                                    <div *ngIf="!form.controls['firstname'].valid && 
+                                    form.controls['firstname']?.touched" class="invalid-feedback">
+                                        Please enter your first name
+                                    </div>
+                            </div>
+                            <div class="">
+                                <label for="login_email">Last name</label>
+                                <input tabindex="1" type="text" [formControl]="lastname" name="lastname"
+                                    class="form-control" id="name" required="" autofocus="">
+                                    <div *ngIf="!form.controls['lastname'].valid && 
+                                    form.controls['lastname']?.touched" class="invalid-feedback">
+                                        Please enter your last name
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <label for="login_email">E-mail</label>
+                        <input tabindex="1" type="text" [formControl]="email" name="email" class="form-control"
+                            id="login_email" required="" autofocus="">
+                        <div *ngIf="!form.controls['email'].valid && 
+                        form.controls['email']?.touched" class="invalid-feedback">
+                            Please enter valid e-mail address
+                        </div>
+                        <div class="invalid-feedback">
+                            {{message}}
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <label for="login_password">Password</label>
+                        <input tabindex="2" [formControl]="password" type="password" name="password"
+                            class="form-control" id="login_password" required="">
+                            <div *ngIf="!form.controls['password'].valid && 
+                            form.controls['password']?.touched" class="invalid-feedback">
+                                min password 6
+                            </div>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <label for="login_password">confirm your password</label>
+                        <input tabindex="2" [formControl]="confirmPassword" type="password" name="confirmPassword"
+                            class="form-control" id="login_password_confirm" required="">
+                            <div *ngIf="showError" class="invalid-feedback">
+                               passwords have to match
+                            </div>
+                    </div>
+
+                   
+                   
+                  
+
+                    <button  [disabled]="!form.valid"  type="submit" (click)="signup()" class="btn btn-block btn-primary py-3" tabindex="2">Sign in
+                        →</button>
+                </form>
+                <div class="pt-4 text-center text-muted">
+                    have an account? <a class="" tabindex="3" routerLink="/login">log in now</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-</body>

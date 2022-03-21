@@ -1,9 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 import { LoginComponent } from '../login/login.component';
-import { User } from '../user';
+import { User } from '../interface/user';
 
 @Component({
   selector: 'app-get-started',
@@ -28,8 +28,12 @@ user?:User;
       Validators.required,
       Validators.email,
     ]),
-    name: new FormControl(null, [
-      Validators.minLength(6),
+    firstname: new FormControl(null, [
+      Validators.minLength(3),
+      Validators.required,
+    ]),
+    lastname: new FormControl(null, [
+      Validators.minLength(3),
       Validators.required,
     ]),
     password: new FormControl(null, [
@@ -46,8 +50,11 @@ user?:User;
 get email():any {
   return this.form?.get('email');
 }
-get name():any {
-  return this.form?.get('name');
+get firstname():any {
+  return this.form?.get('firstname');
+}
+get lastname():any {
+  return this.form?.get('lastname');
 }
 get password():any {
   return this.form?.get('password');
@@ -57,26 +64,11 @@ get confirmPassword():any {
 }
 signup(){
   
-  if(this.terms?.nativeElement['checked'] == true){
-    this.accepted = true
 
-  
-  }
-  else{
-    this.accepted = false
-    console.log(2);
-
-    return
-
-  }
-  if(this.form.invalid){
-    this.showError = true;
-    console.log(2);
-  }
   
   if(this.confirmPassword.value != this.password.value) {
     this.showError = true
-    console.log(1);
+
     
     return;
   }
@@ -85,9 +77,16 @@ signup(){
   }
 
   
-      this.authService.register(this.email.value,this.password.value,this.name.value).subscribe({  
-      next: () => this.route.navigate([`verify/${this.email.value}`]) ,
-      error: (err) => (this.message =  err.error)(this.showError = true)}); 
+      this.authService.register(this.email.value,this.password.value,this.firstname.value,this.lastname.value).subscribe({  
+        next: () => this.route.navigate([`verify`],{queryParams:{
+          email:this.email.value
+        }}) ,
+        error: (err) => {
+          console.log(err.error);
+          this.message =  err.error
+        }
+
+      }); 
   }
 }
 

@@ -2,14 +2,20 @@ const router = require('express').Router();
 const Users = require('../model/user');
 
 
-router.get('/isVerified/:email',async(req,res)=>{
-    const user = await Users.findOne({email:req.params.email})
-    if(user.isVerified){
-      console.log(user.isVerified);
-      return res.status(200).json('true')
-    }
-    else{
-      return res.status(400).json('false')
-    }
+router.get('/wallets/:id',async(req,res)=>{
+  
+  
+  try{
+
+    const user = await Users.findById(req.params.id)
+
+    res.json(JSON.stringify(user.wallets))
+  }
+  catch(e){
+    res.json(e)
+  }
+  
    
   })
+
+  module.exports = router

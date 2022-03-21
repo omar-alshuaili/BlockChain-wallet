@@ -1,0 +1,29 @@
+<link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+
+<div class="content">
+    <div class="profile-container">
+        <div class="headeing">
+            <p class="welcome">Welcome back , {{userData.name | titlecase}} </p>
+            <p class="small">Let's do something today 😎</p>
+        </div>
+        <div class="warning">
+            <i class='bx bx-bell'></i>
+            <p class="warning-p">You can NOT change your contact detail</p>
+        </div>
+        <div class="profile-pic">
+            <img [src]='getSantizeUrl(userPic)'   alt="loading">
+            <input  (change)="onFilePicked($event)"  id="files" type="file" accept="image/png, image/jpeg" class="hidden"  />
+            <label for="files">Upload new image</label>
+        </div>
+      
+        <div class="form">
+            <div class="form-controls">
+                <label  for=""> first name</label>
+                <input value="{{userData.name}}" disabled type="text"></div>
+            <div class="form-controls">
+                <label for="">Email</label>
+                <input value="{{userData.email}}" disabled type="text">
+            </div>
+        </div>
+    </div>
+</div>

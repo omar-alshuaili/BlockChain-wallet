@@ -1,8 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
-import { User } from '../user';
+import { AuthService } from '../services/auth.service';
+import { User } from '../interface/user';
 
 @Component({
   selector: 'app-login',
@@ -21,6 +21,12 @@ export class LoginComponent implements OnInit {
   constructor(private authService:AuthService,private router:Router) { }
 
   ngOnInit(): void {
+    //google log
+    this.loadExternalScript('https://apis.google.com/js/client:platform.js');
+    if (localStorage.getItem('access_token')) {
+      this.router.navigate(['dashboard/profile']);
+      return ;
+    }
     this.form = new FormGroup({
     email: new FormControl(null, [
       Validators.minLength(4),
@@ -48,38 +54,35 @@ get password():any {
       this.showError = true;
       return 
     }
-    this.authService.getUser(this.email.value).subscribe({
-      next:(u)=> this.isVerified = u,
-      complete:()=>this.canLogIn()
-    
-    })
-    if(!this.canLogIn()) {
-      console.log('please verify your email first');
-     return;
-    }
-
-    else{
   
 
   
   this.authService.login(this.email.value,this.password.value).subscribe({  
-      next: ()=> alert('user logged in'),
+      next: ()=> {
+        this.router.navigate(['dashboard/profile']);
+      },
       
-    error: (err) => (this.message =  err.error)(this.showError = true)}); 
+    error: (err) => {
+      this.message = err.error
+
+    }
+  }); 
     
-  }
-  this.router.navigate(['/dashboard'])
+  
+
 }
 
-canLogIn():boolean{
-  if(this.isVerified?.isVerified == false ){
-    return false
-  }
-  else{
-    
-    return true
-  }
+public loadExternalScript(url: string) {
+  const body = <HTMLDivElement> document.body;
+  const script = document.createElement('script');
+  script.innerHTML = '';
+  script.src = url;
+  script.async = true;
+  script.defer = true;
+  body.appendChild(script);
 }
+
+
 }
 
 

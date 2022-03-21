@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import {AuthService} from '../auth.service'
+import { ActivatedRoute, Router } from '@angular/router';
+
+import {AuthService} from '../services/auth.service'
 @Component({
   selector: 'app-verify-email',
   templateUrl: './verify-email.component.html',
   styleUrls: ['./verify-email.component.css']
 })
 export class VerifyEmailComponent implements OnInit {
-  email:string | undefined 
-  constructor(private _ActiveRouter : ActivatedRoute,private _AuthService:AuthService) {
-    this.email = this._ActiveRouter.snapshot.paramMap.get('email')!
+  email:string 
+  error: boolean = false;
+  errorMess: any;
+  constructor(private route :Router, private _ActiveRouter : ActivatedRoute,private _AuthService:AuthService) {
+    this.email = this._ActiveRouter.snapshot.queryParamMap.get('email')!
     console.log(this.email);
    }
 
@@ -30,9 +33,16 @@ export class VerifyEmailComponent implements OnInit {
         nextInput.focus();   // focus if not null
   }
   doVerification(one:string,two:string,three:string,four:string){
-   this._AuthService.verify(';').subscribe(()=>{
-     next:()=> console.log(1);
-     
+
+   this._AuthService.verify(`${one}${two}${three}${four}`,this.email).subscribe({
+     next:()=>{
+      this.route.navigate(['/login'])
+       
+     },
+     error:(e)=>{
+        this.error = true;
+        this.errorMess = e.error
+     }
    })
     
   }

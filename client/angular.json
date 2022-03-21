@@ -45,7 +45,7 @@
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumError": "20kb"
                 }
               ],
               "fileReplacements": [
@@ -98,8 +98,10 @@
             ],
             "styles": [
               "src/styles.css"
+              
             ],
-            "scripts": []
+            "scripts": [
+            ]
           }
         }
       }
