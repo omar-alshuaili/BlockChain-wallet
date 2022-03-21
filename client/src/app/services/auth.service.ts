@@ -9,6 +9,10 @@ import { User } from '../interface/user';
   providedIn: 'root'
 })
 export class AuthService {
+  setNewPassword(email: any,password:string) {
+    return this.http.post(`${baseURL}/api/user/reset/password`,{email:email,password:password})
+  }
+  
  
 
 
@@ -18,6 +22,12 @@ export class AuthService {
     return this.http.post<any>(`${baseURL}/api/user/verify/${email}`,
       { otp: otp}
     )
+  }
+
+  resetPass(email: string,otp:string) {
+
+    
+   return this.http.post(`${baseURL}/api/user/reset`,{email:email,OTP:otp})
   }
  
   private userSubject: BehaviorSubject<User>;
@@ -37,6 +47,9 @@ export class AuthService {
 
    getUser(id:string):Observable<User> {
     return this.http.get<User>(`${baseURL}/api/user/${id}`)
+   }
+   getUserByEmail(email:string) {
+    return this.http.get(`${baseURL}/api/user/reset/find/${email}`)
    }
 
 

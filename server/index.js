@@ -17,10 +17,10 @@ const ApiRoute = require('./routes/crypto-api')
 dotenn.config();
 
 //connect to DB
-const connectionString = 'mongodb://127.0.0.1:27017/users'
+dbString = process.env.DB_connection
 
 
-mongoose.connect(connectionString, {
+mongoose.connect(dbString, {
   "useNewUrlParser": true,
   "useUnifiedTopology": true
 }).
