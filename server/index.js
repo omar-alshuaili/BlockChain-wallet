@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const dotenn = require('dotenv');
 const cors = require('cors');
 const corsOptions = {
-  origin:'http://localhost:4200',
+  origin:'https://opencoin.shop',
   credentials:true
 }
 // configure the middleware for parsing HTML requeest body
