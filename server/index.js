@@ -48,6 +48,6 @@ app.use('/user',user)
 
 app.use('/crypto',ApiRoute)
 
-app.listen(8000,()=>{
+app.listen(5000,()=>{
     console.log('app running');
 })
